@@ -1019,9 +1019,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
   <h3 class="big rv">Every <span class="g" id="burnHrs">01:30</span><span id="burnUnit"></span>,
   the supply gets <span class="g">smaller</span>.</h3>
   <p class="one rv">A share of what is left is sent to an address nobody holds the keys to.
-  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below is on a fixed
-  schedule &mdash; <b>00:00, 01:30, 03:00</b> and so on in UTC. It shows what is left of the
-  window you walked into, and reloading the page does not move it.</p>
+  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below is pinned to a
+  fixed instant &mdash; <b>13 Sep 2026, 16:27 UTC</b> &mdash; and every window is that plus
+  01:30. It shows what is left of the one you walked into; reloading the page does not move it.</p>
 
   <div class="burnhead rv">
     <span class="chip" id="burnChip"><i></i><span id="burnState">not live yet</span></span>
@@ -1422,7 +1422,8 @@ const CONFIG={
   swapUrl:'https://www.ponsfamily.com/launchpad/0xf82baa01da3f80c547f5826d47bcbb521a6848a5',  // the launchpad page for this token
   explorer:'', x:'',
   /* the burn. everything empty until it is real — the clock runs regardless. */
-  burn:{ everyHours:1.5, share:'', epochUTC:0,  // 1.5h = every 90 minutes. share: e.g. '2%' once fixed
+  burn:{ everyHours:1.5, share:'', epochUTC:1789316820,  // anchor: 2026-09-13 16:27:00 UTC
+         // every window is that instant + n×01:30. share: e.g. '2%' once fixed
         supply:'', burned:'', address:'', live:false }
 };
 const SWAP_URL = CONFIG.swapUrl || (CONFIG.ca && CONFIG.swap ? CONFIG.swap+CONFIG.ca : '');
@@ -1587,11 +1588,19 @@ document.querySelectorAll('.rv').forEach(e=>io.observe(e));
   /* spell out the hours it lands on, so nobody has to do the sum */
   const ts=$('burnTimes');
   if(ts){
-    const p2=x=>String(x).padStart(2,'0');
-    const at=t=>p2(Math.floor(t))+':'+p2(Math.round((t-Math.floor(t))*60));
-    const L=[]; for(let t=0;t<24;t+=H) L.push(at(t));
-    ts.textContent = (L.length>6 ? L.slice(0,5).join(' · ')+' … '+L[L.length-1]
-                                 : L.join(' · ')) + ' UTC';
+    const p2=x=>String(x).padStart(2,'0'), DAY=86400, step=Math.round(H*3600);
+    const at=s=>p2(Math.floor(s/3600))+':'+p2(Math.floor(s/60)%60);
+    const off=(((B.epochUTC||0)%DAY)+DAY)%DAY;
+    if(DAY%step===0){
+      /* the windows repeat on the day, so the whole grid can be spelled out */
+      const L=[]; for(let s=off;s<off+DAY;s+=step) L.push(at(s%DAY));
+      L.sort();
+      ts.textContent = (L.length>6 ? L.slice(0,5).join(' · ')+' … '+L[L.length-1]
+                                   : L.join(' · ')) + ' UTC';
+    } else {
+      /* it does not divide the day — say where it starts instead of faking a grid */
+      ts.textContent = 'every '+SPAN+' from '+at(off)+' UTC';
+    }
   }
   const set=(id,v)=>{const e=$(id); if(e) e.textContent=v;};
   if(B.supply) set('bSupply',B.supply);
