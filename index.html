@@ -1016,15 +1016,16 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
 <!-- ══════════════ 09 ══════════════ -->
 <section id="burn"><div class="wrap">
   <div class="eyebrow rv"><span class="num">09</span><h2>the burn window</h2><span class="ln"></span></div>
-  <h3 class="big rv">Every <span class="g" id="burnHrs">3</span> hours,
+  <h3 class="big rv">Every <span class="g" id="burnHrs">01:30</span><span id="burnUnit"></span>,
   the supply gets <span class="g">smaller</span>.</h3>
   <p class="one rv">A share of what is left is sent to an address nobody holds the keys to.
-  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below is the real one:
-  it is counting to the next burn right now.</p>
+  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below runs the
+  window end to end &mdash; a full <b>01:30</b>, down to zero, then again. It locks onto the
+  chain's own schedule the moment the first burn is set.</p>
 
   <div class="burnhead rv">
     <span class="chip" id="burnChip"><i></i><span id="burnState">not live yet</span></span>
-    <span class="chip">burns <b id="burnEvery" style="color:var(--green);font-weight:700">every 3h</b></span>
+    <span class="chip">burns <b id="burnEvery" style="color:var(--green);font-weight:700">every 01:30</b></span>
     <span class="chip">share <b id="burnShare" style="color:var(--gold);font-weight:700">&mdash;</b></span>
     <span class="chip" style="max-width:100%;overflow:hidden;text-overflow:ellipsis">at
       <b id="burnTimes" style="color:var(--green);font-weight:700">&mdash;</b></span>
@@ -1045,7 +1046,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
         <div class="rl"><span id="ringNow">00:00:00 UTC</span><span id="ringPct">0% of the way there</span></div>
       </div>
       <div class="scout"><canvas class="sc"></canvas>
-        <div class="sw">the clock is already real and already counting.
+        <div class="sw">the window is 01:30 and it is running.
           <b>the amounts fill in the moment there is an address.</b></div></div>
     </div>
     <div>
@@ -1421,7 +1422,7 @@ const CONFIG={
   swapUrl:'https://www.ponsfamily.com/launchpad/0xf82baa01da3f80c547f5826d47bcbb521a6848a5',  // the launchpad page for this token
   explorer:'', x:'',
   /* the burn. everything empty until it is real — the clock runs regardless. */
-  burn:{ everyHours:3, share:'', epochUTC:0,   // share: e.g. '2%' once it is fixed
+  burn:{ everyHours:1.5, share:'', epochUTC:0,  // 1.5h = every 90 minutes. share: e.g. '2%' once fixed
         supply:'', burned:'', address:'', live:false }
 };
 const SWAP_URL = CONFIG.swapUrl || (CONFIG.ca && CONFIG.swap ? CONFIG.swap+CONFIG.ca : '');
@@ -1574,15 +1575,21 @@ document.querySelectorAll('.rv').forEach(e=>io.observe(e));
   const B=CONFIG.burn||{}, every=(B.everyHours||24)*3600*1000;
   const cH=$('cH'), cM=$('cM'), cS=$('cS');
   if(!cH) return;
-  const H = B.everyHours || 3;
-  const ev=$('burnEvery'); if(ev) ev.textContent='every '+H+'h';
-  const hr=$('burnHrs');   if(hr) hr.textContent=H;
+  const H = B.everyHours || 1.5;
+  /* the interval is spelled the same way as the clock under it: HH:MM */
+  const pad=x=>String(x).padStart(2,'0');
+  const SPAN = pad(Math.floor(H))+':'+pad(Math.round((H-Math.floor(H))*60));
+  const ev=$('burnEvery'); if(ev) ev.textContent='every '+SPAN;
+  const hr=$('burnHrs');   if(hr) hr.textContent=SPAN;
+  const un=$('burnUnit');  if(un) un.textContent='';
   const sh=$('burnShare');
   if(sh) sh.textContent = B.share || 'set at launch';
   /* spell out the hours it lands on, so nobody has to do the sum */
   const ts=$('burnTimes');
   if(ts){
-    const L=[]; for(let h=0;h<24;h+=H) L.push(String(h).padStart(2,'0')+':00');
+    const p2=x=>String(x).padStart(2,'0');
+    const at=t=>p2(Math.floor(t))+':'+p2(Math.round((t-Math.floor(t))*60));
+    const L=[]; for(let t=0;t<24;t+=H) L.push(at(t));
     ts.textContent = (L.length>6 ? L.slice(0,5).join(' · ')+' … '+L[L.length-1]
                                  : L.join(' · ')) + ' UTC';
   }
@@ -1610,12 +1617,18 @@ document.querySelectorAll('.rv').forEach(e=>io.observe(e));
       (e=>setTimeout(()=>e.classList.remove('hit'),190))(b[i]);
     }
   }
+  /* With a real epoch the clock locks to the chain's schedule. Until then it
+     runs the window itself: opens at a full 01:30, counts to zero, starts over. */
+  const OPENED = Date.now();
   function tick(){
     const now=Date.now();
-    const base=(B.epochUTC||0)*1000;
+    const base = B.epochUTC ? B.epochUTC*1000 : OPENED;
     const since=((now-base)%every+every)%every;
     const left=every-since;
-    const h=Math.floor(left/3600000), m=Math.floor(left/60000)%60, sec=Math.floor(left/1000)%60;
+    /* round the remainder up, so a freshly opened window reads a whole 01:30:00
+       instead of starting a second short */
+    const t=Math.ceil(left/1000);
+    const h=Math.floor(t/3600), m=Math.floor(t/60)%60, sec=t%60;
     digits(cH,h); digits(cM,m); digits(cS,sec);
     const pct=(since/every)*100;
     const f=$('ringFill'); if(f) f.style.width=pct.toFixed(2)+'%';
