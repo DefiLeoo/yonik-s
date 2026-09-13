@@ -1,0 +1,2162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="yoink — a second brain that marks its own homework. Notes are plain markdown; some make a claim about the future, and those settle themselves.">
+<meta name="theme-color" content="#030604">
+<meta property="og:type" content="website">
+<meta property="og:title" content="YOINK — a second brain that marks its own homework">
+<meta property="og:description" content="Obsidian vault · terminal · zero dependencies. Some notes bet on the future, read the source, and write the answer back into the file.">
+<meta property="og:image" content="/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 14'%3E%3Crect width='17' height='14' fill='%23030604'/%3E%3Crect x='1' y='1' width='3' height='1' fill='%238FD95F'/%3E%3Crect x='13' y='1' width='3' height='1' fill='%238FD95F'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%238FD95F'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23FFC93C'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%238FD95F'/%3E%3Crect x='13' y='2' width='1' height='1' fill='%238FD95F'/%3E%3Crect x='14' y='2' width='1' height='1' fill='%23FFC93C'/%3E%3Crect x='15' y='2' width='1' height='1' fill='%238FD95F'/%3E%3Crect x='1' y='3' width='15' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='4' width='15' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='2' y='5' width='4' height='1' fill='%23407428'/%3E%3Crect x='6' y='5' width='5' height='1' fill='%23A6EE55'/%3E%3Crect x='11' y='5' width='4' height='1' fill='%23407428'/%3E%3Crect x='15' y='5' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='6' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%23407428'/%3E%3Crect x='3' y='6' width='2' height='1' fill='%23FFC93C'/%3E%3Crect x='5' y='6' width='1' height='1' fill='%23407428'/%3E%3Crect x='6' y='6' width='5' height='1' fill='%23A6EE55'/%3E%3Crect x='11' y='6' width='1' height='1' fill='%23407428'/%3E%3Crect x='12' y='6' width='2' height='1' fill='%23FFC93C'/%3E%3Crect x='14' y='6' width='1' height='1' fill='%23407428'/%3E%3Crect x='15' y='6' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='7' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='2' y='7' width='1' height='1' fill='%23407428'/%3E%3Crect x='3' y='7' width='2' height='1' fill='%23FFC93C'/%3E%3Crect x='5' y='7' width='1' height='1' fill='%23407428'/%3E%3Crect x='6' y='7' width='5' height='1' fill='%23A6EE55'/%3E%3Crect x='11' y='7' width='1' height='1' fill='%23407428'/%3E%3Crect x='12' y='7' width='2' height='1' fill='%23FFC93C'/%3E%3Crect x='14' y='7' width='1' height='1' fill='%23407428'/%3E%3Crect x='15' y='7' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='8' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='2' y='8' width='4' height='1' fill='%23407428'/%3E%3Crect x='6' y='8' width='5' height='1' fill='%23A6EE55'/%3E%3Crect x='11' y='8' width='4' height='1' fill='%23407428'/%3E%3Crect x='15' y='8' width='1' height='1' fill='%23A6EE55'/%3E%3Crect x='1' y='9' width='15' height='1' fill='%23A6EE55'/%3E%3Crect x='0' y='10' width='16' height='1' fill='%23A6EE55'/%3E%3Crect x='0' y='11' width='14' height='1' fill='%23A6EE55'/%3E%3Crect x='14' y='11' width='2' height='1' fill='%238FD95F'/%3E%3Crect x='0' y='12' width='14' height='1' fill='%23A6EE55'/%3E%3Crect x='14' y='12' width='3' height='1' fill='%238FD95F'/%3E%3Crect x='0' y='13' width='14' height='1' fill='%23A6EE55'/%3E%3Crect x='14' y='13' width='3' height='1' fill='%238FD95F'/%3E%3Crect x='4' y='7' width='1' height='1' fill='%23051006'/%3E%3Crect x='13' y='7' width='1' height='1' fill='%23051006'/%3E%3C/svg%3E">
+<title>YOINK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+</head>
+<body>
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   phosphor green on black, with one gold.
+   gold marks what needs you. everything healthy is green and quiet.
+   colours lifted straight out of scripts/banner.py and tui/theme.py
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  --ground:#030604; --panel:#080F08; --sunk:#0B140B; --line:#1B3220; --line2:#315E36;
+  --text:#E2F2D8; --muted:#8CB08A; --dim:#557C5C;
+  --green:#A6EE55; --lit:#C6FF6B; --soft:#B4EE7C; --deep:#5E9A58;
+  --gold:#FFC93C; --warn:#FF9A45;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--text);
+  font-family:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  font-weight:400;font-size:14.5px;line-height:1.66;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+::selection{background:var(--lit);color:#030604}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+section{padding:54px 0;border-top:1px solid var(--line);position:relative}
+#hero{border-top:0;padding:0 0 26px}
+
+/* the phosphor grain over everything */
+#grain{position:fixed;inset:0;z-index:60;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(166,238,85,.045) 0 1px,transparent 1px 3px)}
+#glowbg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(1100px 520px at 50% -8%,#13300F 0%,transparent 72%),
+    radial-gradient(700px 420px at 88% 42%,#0B2110 0%,transparent 70%)}
+
+/* ── nav ── */
+#nav{position:sticky;top:0;z-index:40;height:56px;display:flex;align-items:center;gap:16px;
+  padding:0 30px;border-bottom:1px solid var(--line);background:rgba(3,6,4,.93);
+  backdrop-filter:blur(8px)}
+#nav .mark{display:flex;align-items:center;gap:12px;text-decoration:none;flex:none}
+#nav canvas{display:block}
+#navCat{image-rendering:pixelated;filter:drop-shadow(0 0 7px #A6EE5544)}
+#navWord{image-rendering:pixelated;filter:drop-shadow(0 0 8px #C6FF6B33)}
+@media(max-width:760px){#nav .mark{gap:8px}}
+#nav .sp{flex:1}
+.nl{font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-decoration:none}
+.nl:hover{color:var(--green)}
+@media(max-width:1000px){.nl{display:none}}
+.cta{display:inline-flex;align-items:center;height:33px;padding:0 15px;
+  border:1px solid var(--line2);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;color:var(--text);white-space:nowrap;transition:.15s}
+.cta:hover{border-color:var(--green);color:var(--green);box-shadow:0 0 16px #A6EE5540}
+.cta.pri{background:var(--lit);border-color:var(--lit);color:#030604;font-weight:700;
+  box-shadow:0 0 22px #C6FF6B33}
+.cta.pri:hover{background:#DBFF8C;border-color:#DBFF8C;color:#030604;
+  box-shadow:0 0 30px #C6FF6B88}
+.cta.big{height:42px;padding:0 22px;font-size:12.5px;letter-spacing:.2em}
+.cta.off{opacity:.4;pointer-events:none}
+
+/* ── the address bar ── */
+.cabar{display:flex;align-items:center;gap:13px;flex-wrap:wrap;border:1px solid var(--line2);
+  background:var(--panel);padding:11px 15px}
+.cabar .t{font-size:13px;letter-spacing:1.6px;font-weight:700;color:var(--green);flex:none}
+.cabar .ch{display:flex;align-items:center;gap:7px;flex:none;border:1px solid var(--line2);
+  padding:3px 9px;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.cabar .ch i{width:5px;height:5px;background:var(--lit);box-shadow:0 0 7px var(--lit);
+  animation:blink 1.5s steps(2) infinite}
+@keyframes blink{50%{opacity:.12}}
+.cabar code{flex:1;min-width:180px;font-size:12px;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.cabar code.empty{color:var(--gold)}
+.cabar .acts{display:flex;gap:8px;flex:none;margin-left:auto}
+@media(max-width:760px){.cabar code{flex:1 0 100%;min-width:0;order:9}.cabar .acts{margin-left:0}}
+
+/* ── hero ── */
+#markwrap{padding:30px 0 20px;position:relative;display:flex;align-items:center;
+  justify-content:center;gap:min(4.5vw,44px)}
+#markwrap canvas{display:block;width:100%;height:auto}
+.mkc{flex:0 0 clamp(170px,31%,380px);min-width:0}
+.mkw{flex:1 1 auto;min-width:0;max-width:700px}
+@media(max-width:820px){#markwrap{flex-direction:column;gap:16px;padding:24px 0 18px}
+  .mkc{flex:none;width:62%;max-width:240px}.mkw{width:100%;max-width:none}}
+.lede{font-size:clamp(16px,2vw,25px);line-height:1.45;margin:0 0 8px;color:var(--text);
+  max-width:none}
+.lede b{color:var(--gold);font-weight:400}
+.kick{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin:0 0 18px;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.badge{border:1px solid var(--line2);padding:4px 10px;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.badge b{color:var(--green);font-weight:700}
+.btns{display:flex;gap:9px;flex-wrap:wrap}
+
+/* ── the counted strip ── */
+.statstrip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);margin-top:1px}
+.statstrip>div{background:var(--panel);padding:16px 14px;min-width:0}
+.statstrip b{display:block;font-size:clamp(20px,2.6vw,30px);line-height:1;color:var(--lit);
+  font-weight:700;text-shadow:0 0 18px #C6FF6B44}
+.statstrip b.g{color:var(--gold);text-shadow:0 0 18px #FFC93C44}
+.statstrip u{display:block;margin-top:7px;text-decoration:none;font-size:10px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+@media(max-width:860px){.statstrip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:460px){.statstrip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cols3v{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);align-self:start}
+.cols3v>div{background:var(--panel);padding:18px 18px;min-width:0}
+.panes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-top:0}
+.panes>div{background:var(--panel);padding:15px 16px;min-width:0}
+.panes kbd{display:inline-block;border:1px solid var(--line2);padding:0 7px;font-size:10.5px;
+  color:var(--gold);margin-right:8px}
+.panes b{color:var(--green);font-weight:700;font-size:12px;letter-spacing:.14em}
+.panes span{display:block;margin-top:6px;font-size:11.5px;color:var(--muted)}
+@media(max-width:760px){.panes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ── the burn window ── */
+#burn .wrap{position:relative}
+.burnhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);
+  padding:4px 10px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted)}
+.chip i{width:5px;height:5px;background:var(--gold);box-shadow:0 0 8px var(--gold);
+  animation:blink 1.5s steps(2) infinite}
+.chip.live i{background:var(--lit);box-shadow:0 0 8px var(--lit)}
+.clockgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+.clockgrid>div{background:var(--panel);padding:26px 24px;min-width:0}
+@media(max-width:860px){.clockgrid{grid-template-columns:minmax(0,1fr)}}
+.clocklab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:14px}
+.clock{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}
+.clock .u{display:flex;flex-direction:column;align-items:center;gap:6px}
+.clock .d{display:flex;gap:3px}
+.clock .d b.hit{color:#EAFFC9;text-shadow:0 0 34px #C6FF6B,0 0 10px #fff;
+  border-color:var(--lit)}
+.clock .d b{transition:color .28s ease,text-shadow .28s ease,border-color .28s ease;
+  display:block;min-width:clamp(28px,4.6vw,48px);text-align:center;
+  font-size:clamp(30px,5.4vw,58px);line-height:1;font-weight:700;color:var(--lit);
+  background:var(--sunk);border:1px solid var(--line2);padding:8px 4px;
+  text-shadow:0 0 22px #C6FF6B55;font-variant-numeric:tabular-nums}
+.clock .u s{text-decoration:none;font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim)}
+.clock .sep{font-size:clamp(22px,3.6vw,38px);color:var(--line2);padding-bottom:22px}
+.dayring{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.dayring .rr{position:relative;height:8px;background:var(--sunk);border:1px solid var(--line);
+  overflow:hidden}
+.dayring .rr i{position:absolute;left:0;top:0;bottom:0;
+  background:linear-gradient(90deg,var(--deep),var(--lit));box-shadow:0 0 16px #C6FF6B55}
+.dayring .rl{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.burnstat{display:flex;justify-content:space-between;gap:12px;padding:11px 0;
+  border-bottom:1px solid var(--line);font-size:11.5px}
+.burnstat:last-child{border-bottom:0}
+.burnstat u{text-decoration:none;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  font-size:10px}
+.burnstat b{font-weight:700;color:var(--text);text-align:right;min-width:0;word-break:break-word}
+.burnstat b.g{color:var(--gold)}
+.burnrules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-top:0}
+.burnrules>div{background:var(--panel);padding:20px 20px;min-width:0}
+.burnrules h4{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);font-weight:700}
+.burnrules p{margin:0;font-size:12px}
+@media(max-width:760px){.burnrules{grid-template-columns:minmax(0,1fr)}}
+.ledger{border:1px solid var(--line);border-top:0;background:var(--panel)}
+.ledger .lh{display:flex;align-items:center;gap:9px;padding:10px 16px;
+  border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted)}
+.ledger .lh b{color:var(--green);font-weight:700}
+.ledger .empty{padding:34px 20px;text-align:center;color:var(--muted);font-size:12.5px}
+.ledger .empty b{display:block;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;
+  font-size:11px;margin-bottom:8px}
+
+/* ── the roadmap, as a track ── */
+.roadbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.roadbar .m{flex:1 1 240px;min-width:0;height:6px;background:var(--sunk);
+  border:1px solid var(--line);position:relative;overflow:hidden}
+.roadbar .m i{position:absolute;left:0;top:0;bottom:0;width:33.3%;
+  background:linear-gradient(90deg,var(--deep),var(--lit));box-shadow:0 0 14px #C6FF6B55}
+.roadbar .c{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  flex:none}
+.roadbar .c b{color:var(--lit);font-weight:700}
+.road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line)}
+.rstep{position:relative;background:var(--panel);padding:20px 20px 22px;min-width:0}
+.rstep:before{content:'';position:absolute;left:0;top:0;width:100%;height:2px;
+  background:var(--line2)}
+.rstep.done:before{background:var(--lit);box-shadow:0 0 12px var(--lit)}
+.rstep.now:before{background:var(--gold);box-shadow:0 0 14px var(--gold)}
+.rstep .rt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.rstep .rn{font-size:10px;letter-spacing:.2em;color:var(--dim)}
+.rstep .rh{font-size:13.5px;letter-spacing:.04em;color:var(--text)}
+.rstep.done .rh{color:var(--green)}
+.rstep.now .rh{color:var(--gold)}
+.rstep .tag{margin-left:auto;border:1px solid var(--line2);padding:2px 8px;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.rstep.done .tag{color:var(--lit);border-color:#315E36}
+.rstep.now .tag{color:var(--gold);border-color:#5A4A18;animation:blink 2.2s steps(2) infinite}
+.rstep p{margin:0;font-size:12.5px;max-width:none}
+@media(max-width:940px){.road{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.road{grid-template-columns:minmax(0,1fr)}}
+
+/* ── the scout: the creature points at the thing that matters ── */
+.scout{display:flex;align-items:flex-end;gap:12px;margin-top:20px;
+  opacity:0;transform:translateX(-22px);transition:opacity .7s ease,transform .7s ease}
+.scout.in{opacity:1;transform:none}
+.scout canvas{display:block;flex:none;width:78px;height:60px}
+.scout .sw{position:relative;border:1px solid var(--line2);background:var(--sunk);
+  padding:9px 13px;font-size:11.5px;color:var(--muted);min-width:0;margin-bottom:7px}
+.scout .sw b{color:var(--gold);font-weight:700}
+.scout .sw:before{content:'';position:absolute;left:-5px;bottom:9px;width:8px;height:8px;
+  background:var(--sunk);border-left:1px solid var(--line2);border-bottom:1px solid var(--line2);
+  transform:rotate(45deg)}
+@media(max-width:560px){.scout canvas{width:58px;height:45px}}
+
+/* ── the rail: the creature runs the page ── */
+#rail{position:fixed;left:0;right:0;bottom:0;z-index:45;height:46px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(3,6,4,.88) 38%,rgba(3,6,4,.97));
+  border-top:1px solid var(--line)}
+#rail .track{position:absolute;left:0;right:0;bottom:11px;height:1px;background:var(--line2)}
+#railFill{position:absolute;left:0;bottom:11px;height:1px;background:var(--lit);
+  box-shadow:0 0 10px var(--lit)}
+#railTicks{position:absolute;left:0;right:0;bottom:8px;height:7px}
+#railTicks i{position:absolute;top:0;width:1px;height:7px;background:var(--line2)}
+#railCat{position:absolute;left:0;bottom:12px;height:26px;display:block;
+  transition:none;will-change:transform}
+#railSay{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;
+  pointer-events:none}
+#railSay span{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+#railSay b{color:var(--gold);font-weight:700;transition:opacity .5s}
+body{padding-bottom:46px}
+@media(max-width:640px){#rail{height:38px}#railCat{height:21px;bottom:10px}
+  #rail .track,#railFill{bottom:9px}#railTicks{bottom:6px}#railSay{display:none}
+  body{padding-bottom:38px}}
+@media (prefers-reduced-motion:reduce){#rail{display:none}body{padding-bottom:0}}
+
+/* ── the live terminal ── */
+.livet{border:1px solid var(--line2);background:var(--panel);position:relative;
+  box-shadow:0 0 0 1px #0a140a,0 0 54px #0d260f88,inset 0 0 80px #0b1a0c;
+  overflow:hidden}
+/* the tube: a sweep travelling down, a static grid, and a slow flicker */
+.livet:after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(0deg,rgba(166,238,85,.055) 0 1px,transparent 1px 3px),
+    radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(0,0,0,.45) 100%)}
+.livet .sweep{position:absolute;left:0;right:0;height:90px;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(198,255,107,.055) 55%,transparent);
+  animation:sweep 5.4s linear infinite}
+@keyframes sweep{0%{transform:translateY(-140px)}100%{transform:translateY(720px)}}
+.livet .flick{position:absolute;inset:0;z-index:2;pointer-events:none;background:#C6FF6B;
+  mix-blend-mode:overlay;opacity:0;animation:flick 7s steps(1) infinite}
+@keyframes flick{0%,96%{opacity:0}96.5%{opacity:.05}97%{opacity:0}98%{opacity:.035}98.4%{opacity:0}}
+.lth{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;
+  border-bottom:1px solid var(--line);background:var(--sunk);min-width:0}
+.lth i{width:6px;height:6px;background:var(--lit);box-shadow:0 0 8px var(--lit);flex:none;
+  animation:blink 1.6s steps(2) infinite}
+.lth b{font-size:12px;letter-spacing:.14em;color:var(--green);font-weight:700;flex:none}
+.lth s{text-decoration:none;font-size:10.5px;color:var(--dim);flex:0 1 auto;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ltchips{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.ltchips em{font-style:normal;border:1px solid var(--line2);padding:2px 7px;font-size:8.5px;
+  letter-spacing:.16em;color:var(--dim)}
+.ltchips em.ok{color:var(--lit);border-color:#315E36}
+.ltchips em.run{color:var(--gold);border-color:#5A4A18}
+.ltchips em.run:before{content:'';display:inline-block;width:4px;height:4px;margin-right:5px;
+  vertical-align:1px;background:var(--gold);box-shadow:0 0 7px var(--gold);
+  animation:blink 1s steps(2) infinite}
+.ltout{height:clamp(360px,52vh,580px);overflow-y:auto;overflow-x:auto;
+  padding:20px 24px;font-size:13.5px;
+  line-height:1.62;white-space:pre-wrap;word-break:break-word;position:relative;z-index:1;
+  text-shadow:0 0 9px currentColor}
+.ltout .desk{text-shadow:none}
+/* the block cursor that follows what is being typed */
+.ltout i.cur{display:inline-block;width:.62em;height:1.02em;vertical-align:-.16em;
+  background:var(--lit);box-shadow:0 0 10px var(--lit);animation:blink .9s steps(2) infinite;
+  margin-left:1px}
+.ltout::-webkit-scrollbar{width:8px;height:8px}
+.ltout::-webkit-scrollbar-thumb{background:var(--line2)}
+.ltout .l{display:block;min-height:1.62em}
+.ltout .cmd{color:var(--text)}
+.ltout .cmd b{color:var(--lit);font-weight:700}
+.ltout .ok{color:var(--green)}
+.ltout .bad{color:var(--warn)}
+.ltout .go{color:var(--gold)}
+.ltout .dim{color:var(--dim)}
+.ltin{display:flex;align-items:center;gap:11px;border-top:1px solid var(--line);
+  padding:12px 18px;font-size:14px;background:var(--sunk);position:relative;z-index:4}
+.ltsug{position:relative;z-index:4;background:var(--panel)}
+.lth{position:relative;z-index:4}
+.ltin .ps{color:var(--green);font-weight:700;flex:none}
+.ltin input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--text);
+  font:inherit;font-size:13.5px;caret-color:var(--lit)}
+.ltin input::placeholder{color:var(--dim)}
+.ltsug{display:flex;gap:7px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}
+.ltsug button{background:none;border:1px solid var(--line2);color:var(--muted);font:inherit;
+  font-size:11px;padding:4px 11px;cursor:pointer;transition:.15s;white-space:nowrap}
+.ltsug button:hover{border-color:var(--green);color:var(--green)}
+@media(max-width:560px){.ltout{height:clamp(300px,56vh,440px);font-size:12px;padding:14px 15px}
+  .ltin{padding:10px 14px}.ltin input{font-size:12px}.ltchips{width:100%;margin-left:0}
+  .ltfoot{font-size:8.5px;gap:10px}}
+
+/* the buy desk, printed into the terminal */
+.desk{display:block;border:1px solid var(--line2);background:var(--sunk);margin:10px 0 4px;
+  padding:14px 16px;white-space:normal}
+.desk .dh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.desk .dh b{font-size:15px;letter-spacing:.1em;color:var(--green);font-weight:700}
+.desk .dh em{font-style:normal;border:1px solid var(--line2);padding:2px 8px;font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.desk .dr{display:flex;justify-content:space-between;gap:12px;padding:7px 0;
+  border-bottom:1px solid var(--line);font-size:11.5px}
+.desk .dr:last-of-type{border-bottom:0}
+.desk .dr u{text-decoration:none;color:var(--muted);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;flex:none}
+.desk .dr b{font-weight:700;text-align:right;min-width:0;word-break:break-all}
+.desk .dr b.pend{color:var(--gold)}
+.desk .da{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+button.cta{background:none;color:var(--text);font:inherit;font-size:11px;cursor:pointer}
+button.cta.off{cursor:default}
+.desk .safe{margin-top:13px;border-top:1px solid var(--line);padding-top:11px;
+  font-size:11px;color:var(--dim)}
+.desk .safe b{color:var(--gold);font-weight:700}
+
+/* ── nothing sits still ── */
+@keyframes phos{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes runline{0%{left:-14%}100%{left:104%}}
+@keyframes swell{0%,100%{text-shadow:0 0 18px currentColor}50%{text-shadow:0 0 30px currentColor}}
+/* a waiting value breathes instead of looking broken */
+.stat b.wait,.cabar code.empty,.cabox code.empty,.burnstat b.pend,.desk .dr b.pend{
+  animation:phos 2.6s ease-in-out infinite}
+/* the eyebrow rule carries a pulse once the section arrives */
+.eyebrow .ln{position:relative;overflow:hidden}
+.eyebrow.in .ln:after{content:'';position:absolute;top:0;width:14%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--lit),transparent);
+  animation:runline 2.6s cubic-bezier(.4,0,.2,1) .2s 2 both}
+/* the gauge bars keep a travelling highlight */
+.track{position:relative;overflow:hidden}
+.track:after{content:'';position:absolute;top:0;bottom:0;width:18%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  animation:runline 3.4s linear infinite}
+/* the counted numbers pulse in turn */
+.statstrip b{animation:swell 3.4s ease-in-out infinite}
+.statstrip>div:nth-child(2) b{animation-delay:.4s}
+.statstrip>div:nth-child(3) b{animation-delay:.8s}
+.statstrip>div:nth-child(4) b{animation-delay:1.2s}
+.statstrip>div:nth-child(5) b{animation-delay:1.6s}
+.statstrip>div:nth-child(6) b{animation-delay:2s}
+/* the market heartbeat */
+.beat{display:inline-flex;align-items:center;gap:6px}
+.beat i{width:5px;height:5px;flex:none;background:var(--line2)}
+.beat.on i{background:var(--lit);box-shadow:0 0 8px var(--lit);
+  animation:blink 1.4s steps(2) infinite}
+.beat.idle i{background:var(--gold);box-shadow:0 0 8px var(--gold);
+  animation:phos 2.4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .stat b.wait,.cabar code.empty,.cabox code.empty,.burnstat b.pend,.desk .dr b.pend,
+  .statstrip b,.track:after,.eyebrow.in .ln:after,.beat i{animation:none}}
+
+/* ── the opening screen ── */
+#hero{border-top:0;padding:0;min-height:calc(100vh - 56px);
+  display:flex;flex-direction:column;justify-content:center}
+#hero>.wrap{width:100%;padding-top:26px}
+.scroll{display:flex;flex-direction:column;align-items:center;gap:9px;
+  padding:54px 0 8px;text-decoration:none;position:relative;z-index:2}
+.scroll s{text-decoration:none;font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--dim)}
+.scroll b{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);
+  font-weight:700;transition:.2s}
+.scroll:hover b{color:var(--lit);text-shadow:0 0 16px #C6FF6B88}
+.scroll i{display:block;width:1px;height:36px;position:relative;
+  background:linear-gradient(180deg,transparent,var(--line2),var(--lit));
+  animation:dip 2.2s ease-in-out infinite}
+.scroll i:after{content:'';position:absolute;left:-3.5px;bottom:0;width:8px;height:8px;
+  border-right:1px solid var(--lit);border-bottom:1px solid var(--lit);
+  transform:rotate(45deg);box-shadow:2px 2px 12px #C6FF6B55}
+@keyframes dip{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(8px);opacity:1}}
+/* 01 no longer starts on a hard rule — it comes up out of the dark */
+#start{border-top:0;padding-top:20px}
+#start:before{content:'';position:absolute;left:0;right:0;top:0;height:150px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(19,48,15,.55),transparent 78%)}
+#start>.wrap{position:relative}
+@media(max-height:760px){#hero{min-height:0;padding:14px 0 0}.scroll{padding:30px 0 6px}}
+@media(max-width:620px){.scroll{padding:34px 0 6px}}
+@media (prefers-reduced-motion:reduce){.scroll i{animation:none}}
+
+/* ── the pointer is ours ── */
+@media (hover:hover) and (pointer:fine){
+  html,body{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 13 13'><path d='M1.2 0.6 L1.2 10.2 L3.7 7.9 L5.4 11.9 L7.3 11.1 L5.6 7.2 L9 7.2 Z' fill='%23A6EE55' stroke='%23041006' stroke-width='1' stroke-linejoin='round'/></svg>") 2 1, auto}
+  a,button,summary,[role=button],.cta,.ltsug button{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 13 13'><path d='M1.2 0.6 L1.2 10.2 L3.7 7.9 L5.4 11.9 L7.3 11.1 L5.6 7.2 L9 7.2 Z' fill='%23FFC93C' stroke='%23041006' stroke-width='1' stroke-linejoin='round'/></svg>") 2 1, pointer}
+  input,textarea{cursor:text}
+  #markwrap canvas,#mark{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 13 13'><path d='M1.2 0.6 L1.2 10.2 L3.7 7.9 L5.4 11.9 L7.3 11.1 L5.6 7.2 L9 7.2 Z' fill='%23A6EE55' stroke='%23041006' stroke-width='1' stroke-linejoin='round'/></svg>") 2 1, auto}
+  /* the glow that trails behind it */
+  #curglow{position:fixed;left:0;top:0;width:210px;height:210px;margin:-105px 0 0 -105px;
+    z-index:55;pointer-events:none;opacity:.5;will-change:transform;
+    background:radial-gradient(circle,rgba(166,238,85,.20) 0%,rgba(166,238,85,.07) 34%,transparent 66%);
+    transition:opacity .3s ease,width .22s ease,height .22s ease,margin .22s ease}
+  #curglow.hot{opacity:.85;width:280px;height:280px;margin:-140px 0 0 -140px}
+  #curdot{position:fixed;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;z-index:56;
+    pointer-events:none;background:var(--lit);box-shadow:0 0 12px var(--lit);
+    will-change:transform;opacity:.9}
+}
+@media (prefers-reduced-motion:reduce){#curglow,#curdot{display:none}}
+
+/* ── the terminal wants more room than the prose ── */
+@media(min-width:1100px){#terminal>.wrap{max-width:min(1440px,calc(100vw - 60px))}}
+#terminal .livet{margin-top:4px}
+.ltfoot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:8px 14px;
+  border-top:1px solid var(--line);background:var(--sunk);position:relative;z-index:4;
+  font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.ltfoot b{color:var(--green);font-weight:700}
+.ltfoot .sp{flex:1}
+.ltfoot .bars{display:flex;gap:2px;align-items:flex-end;height:11px}
+.ltfoot .bars i{width:3px;background:var(--line2);animation:vu 1.1s ease-in-out infinite}
+.ltfoot .bars i:nth-child(2){animation-delay:.13s}
+.ltfoot .bars i:nth-child(3){animation-delay:.26s}
+.ltfoot .bars i:nth-child(4){animation-delay:.39s}
+.ltfoot .bars i:nth-child(5){animation-delay:.52s}
+@keyframes vu{0%,100%{height:3px;background:var(--line2)}
+  50%{height:11px;background:var(--lit);box-shadow:0 0 7px var(--lit)}}
+@media (prefers-reduced-motion:reduce){.ltfoot .bars i{animation:none;height:5px}}
+
+/* ── 00 · the film ── */
+#film{border-top:0;padding:0 0 54px;position:relative}
+#film:before{content:'';position:absolute;left:0;right:0;top:0;height:130px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(19,48,15,.5),transparent 80%)}
+#film>.wrap{position:relative}
+.filmwrap{position:relative;border:1px solid var(--line2);background:#C8F000;
+  overflow:hidden;line-height:0;cursor:pointer;
+  box-shadow:0 0 0 1px #0c1a0c,0 30px 80px -46px #C8F00055}
+.filmwrap video,.filmwrap img{display:block;width:100%;height:auto}
+/* the acid block gets the same grain as the rest of the page, so it belongs */
+.filmwrap:after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px)}
+.filmbar{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;
+  gap:10px;padding:9px 13px;background:linear-gradient(180deg,transparent,rgba(3,6,4,.86));
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  line-height:1.6;opacity:0;transition:opacity .25s}
+.filmwrap:hover .filmbar,.filmwrap:focus-visible .filmbar,.filmwrap.paused .filmbar{opacity:1}
+.filmbar b{color:var(--lit);font-weight:700}
+.filmbar .sp{flex:1}
+.filmwrap .big-play{position:absolute;inset:0;z-index:4;display:none;align-items:center;
+  justify-content:center}
+.filmwrap.paused .big-play{display:flex}
+.filmwrap .big-play i{width:64px;height:64px;border:2px solid #0b1400;background:#C8F000;
+  display:block;position:relative;box-shadow:0 0 0 6px rgba(11,20,0,.18)}
+.filmwrap .big-play i:after{content:'';position:absolute;left:24px;top:18px;
+  border-left:20px solid #0b1400;border-top:14px solid transparent;
+  border-bottom:14px solid transparent}
+.filmcap{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:11px;
+  letter-spacing:.08em;color:var(--dim)}
+.filmcap b{color:var(--green);font-weight:700}
+
+/* ── section furniture ── */
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:22px;min-width:0}
+.eyebrow .num{font-size:10.5px;color:var(--dim);letter-spacing:.2em;flex:none}
+.eyebrow h2{margin:0;font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--green);font-weight:700;flex:0 1 auto;min-width:0}
+.eyebrow .ln{flex:1 1 0;min-width:0;height:1px;
+  background:linear-gradient(90deg,var(--line2),transparent)}
+.big{font-size:clamp(23px,2.9vw,38px);line-height:1.2;letter-spacing:-.01em;margin:0 0 20px;
+  font-weight:400}
+.big .g{color:var(--gold)}
+.big .v{color:var(--green)}
+p{margin:0 0 14px;max-width:64ch;color:var(--muted);font-size:13.5px}
+p b{color:var(--text);font-weight:400}
+p .g{color:var(--gold)}
+.one{font-size:13px;color:var(--muted);max-width:70ch;margin:0 0 26px}
+.one b{color:var(--text);font-weight:400}
+.one .g{color:var(--gold)}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}
+.cols3>div{background:var(--panel);padding:22px 20px}
+.cols>div,.cols3>div{min-width:0}
+.cols3 h4{margin:0 0 9px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--green);font-weight:700}
+.cols3 p{font-size:12.5px;margin:0}
+@media(max-width:900px){.cols,.cols3{grid-template-columns:minmax(0,1fr)}}
+
+/* ── terminal blocks ── */
+pre.term{margin:0;background:var(--panel);border:1px solid var(--line);padding:16px 20px;
+  font-size:12.5px;line-height:1.7;overflow-x:auto;color:var(--text);max-width:100%}
+pre.term .p{color:var(--dim)}
+pre.term .c{color:var(--dim)}
+pre.term .g{color:var(--green)}
+pre.term .o{color:var(--gold)}
+pre.term .w{color:var(--warn)}
+.termhead{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-bottom:0;
+  background:var(--sunk);padding:8px 13px;font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dim);min-width:0}
+.termhead i{width:6px;height:6px;background:var(--line2);flex:none}
+.termhead i.on{background:var(--lit);box-shadow:0 0 7px var(--lit)}
+.termhead s{margin-left:auto;text-decoration:none;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;flex:0 1 auto;min-width:0}
+
+/* ── the pulse ── */
+.gauge{border:1px solid var(--line);background:var(--panel);padding:24px 22px}
+.gauge .row{margin-bottom:17px}
+.gauge .lab{display:flex;align-items:baseline;gap:10px;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.gauge .lab b{font-size:21px;color:var(--text);font-weight:700;letter-spacing:-.01em}
+.gauge .lab s{margin-left:auto;text-decoration:none;color:var(--dim);font-size:9.5px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.track{height:11px;background:var(--sunk);position:relative;overflow:hidden}
+.track i{position:absolute;inset:0 auto 0 0;width:0;transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
+.track i.said{background:var(--deep)}
+.track i.right{background:var(--lit);box-shadow:0 0 12px #8FD95F66}
+.gapbar{display:flex;align-items:center;gap:13px;border-top:1px solid var(--line);
+  padding-top:18px}
+.gapbar .n{font-size:clamp(28px,3.6vw,42px);font-weight:700;color:var(--gold);line-height:1;
+  text-shadow:0 0 22px #FFD76A44}
+.gapbar .t{font-size:11px;color:var(--muted)}
+.gapbar .t b{color:var(--text);font-weight:400}
+.scale{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.scale .sh{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:13px}
+.sbar{position:relative;height:24px}
+.sbar .ax{position:absolute;left:0;right:0;top:10px;height:2px;
+  background:linear-gradient(90deg,var(--lit),var(--deep) 25%,var(--warn) 62%,#7A3B2E)}
+.sbar .tick{position:absolute;top:0;width:1px;height:22px;background:var(--line2)}
+.sbar .tick s{position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  text-decoration:none;font-size:9px;color:var(--dim);white-space:nowrap;letter-spacing:.06em}
+.sbar .tick.tend s{left:auto;right:0;transform:none}
+.sbar .tick.tstart s{left:0;transform:none}
+.sbar .you{position:absolute;top:1px;width:3px;height:22px;background:var(--gold);
+  box-shadow:0 0 12px var(--gold);transition:left 1.1s cubic-bezier(.2,.7,.3,1)}
+.sbar .you s{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);
+  text-decoration:none;font-size:10.5px;color:var(--gold);font-weight:700;white-space:nowrap}
+.vault{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.vkey{display:flex;flex-direction:column;gap:10px;min-width:180px}
+.vkey div{display:flex;align-items:baseline;gap:9px;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted)}
+.vkey i{width:8px;height:8px;flex:none}
+.vkey b{font-size:18px;color:var(--text);font-weight:700;letter-spacing:0}
+.vkey s{margin-left:auto;text-decoration:none;color:var(--dim);font-size:9.5px;flex:none}
+
+/* ── tables, keys, refusals ── */
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+  font-weight:400;padding:0 14px 10px 0;border-bottom:1px solid var(--line)}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--line);color:var(--muted);
+  vertical-align:top;word-break:break-word}
+td b{color:var(--text);font-weight:400}
+code{background:var(--sunk);border:1px solid var(--line);padding:1px 5px;font-size:11.5px;
+  color:var(--green)}
+.keys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line)}
+.keys>div{background:var(--panel);padding:15px 16px;min-width:0}
+.keys kbd{display:inline-block;border:1px solid var(--line2);padding:1px 7px;font-size:10.5px;
+  color:var(--green);margin-bottom:7px}
+.keys span{font-size:11.5px;color:var(--muted);display:block}
+@media(max-width:900px){.keys{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.refuse{border-left:2px solid var(--gold);background:var(--panel);padding:14px 18px;
+  margin-bottom:10px}
+.refuse code{display:block;background:none;border:0;padding:0;color:var(--dim);font-size:11.5px;
+  margin-bottom:6px;overflow-x:auto;white-space:nowrap}
+.refuse b{color:var(--gold);font-weight:700}
+.refuse span{color:var(--muted);font-size:12.5px}
+
+/* ── the token ── */
+.tokgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+.tokgrid>div{background:var(--panel);padding:28px 26px;min-width:0;position:relative;
+  overflow:hidden}
+@media(max-width:900px){.tokgrid{grid-template-columns:minmax(0,1fr)}}
+#tokCat{position:absolute;right:14px;bottom:12px;opacity:.15;pointer-events:none}
+@media(max-width:640px){#tokCat{opacity:.09;right:-10px;bottom:-4px}}
+.tokname{font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1;color:var(--green);
+  text-shadow:0 0 30px #8FD95F33;position:relative}
+.tokchain{color:var(--muted);font-size:12px;margin-top:9px;position:relative}
+.calabel{margin-top:24px;font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--dim)}
+.cabox{display:flex;align-items:center;gap:11px;border:1px solid var(--line2);
+  background:var(--sunk);padding:11px 13px;margin-top:8px}
+.cabox code{flex:1;background:none;border:0;padding:0;font-size:12px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;color:var(--text)}
+.cabox code.empty{color:var(--gold)}
+.stat{display:flex;justify-content:space-between;gap:14px;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:11.5px}
+.stat:last-of-type{border-bottom:0}
+.stat u{text-decoration:none;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;
+  font-size:9.5px}
+.stat b{color:var(--text);font-weight:700}
+#chartbox{border:1px solid var(--line);background:var(--panel);margin-top:22px;overflow:hidden}
+#chartbox .ch{display:flex;align-items:center;gap:10px;padding:11px 15px;
+  border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dim);min-width:0}
+#chartbox .ch b{color:var(--green);font-weight:700}
+#chartbox .ch s{margin-left:auto;text-decoration:none;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;min-width:0}
+#chartFrame{width:100%;height:440px;border:0;display:block;background:var(--sunk)}
+#chartWait{padding:48px 22px;text-align:center;color:var(--muted);font-size:12.5px}
+#chartWait b{color:var(--gold);display:block;margin-bottom:7px;letter-spacing:.16em;
+  text-transform:uppercase;font-size:10.5px}
+@media(max-width:760px){#chartFrame{height:320px}}
+
+/* ── limits strip ── */
+.limits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line)}
+.limits>div{background:var(--panel);padding:20px 18px;min-width:0}
+.limits b{display:block;color:var(--gold);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:8px}
+.limits span{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.limits{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.limits{grid-template-columns:minmax(0,1fr)}}
+
+/* ── footer ── */
+footer{border-top:1px solid var(--line);padding:44px 0 56px}
+.fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-bottom:34px}
+@media(max-width:760px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fgrid h4{margin:0 0 12px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);font-weight:400}
+.fgrid a{display:block;font-size:12px;color:var(--muted);text-decoration:none;margin-bottom:8px}
+.fgrid a:hover{color:var(--green)}
+.fnote{font-size:10.5px;color:var(--dim);line-height:1.85;max-width:92ch}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(max-width:620px){.wrap{padding:0 16px}section{padding:58px 0}
+  .eyebrow h2{font-size:10.5px;letter-spacing:.16em}.eyebrow{gap:9px}
+  #markwrap{padding:34px 0 22px}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}
+  .cabar .ch i{animation:none}}
+</style>
+
+<div id="glowbg"></div>
+<div id="grain"></div>
+<div id="curglow" aria-hidden="true"></div><div id="curdot" aria-hidden="true"></div>
+</div>
+
+<div id="rail" aria-hidden="true">
+  <div class="track"></div>
+  <div id="railFill"></div>
+  <div id="railTicks"></div>
+  <canvas id="railCat" height="26"></canvas>
+  <div id="railSay"><span>you are in&nbsp;</span><b id="railLab">the top</b></div>
+</div>
+
+
+<nav id="nav">
+  <a class="mark" href="#top" aria-label="YOINK — back to the top">
+    <canvas id="navCat" aria-hidden="true"></canvas>
+    <canvas id="navWord" aria-hidden="true"></canvas>
+  </a>
+  <div class="sp"></div>
+  <a class="nl" href="#film">film</a>
+  <a class="nl" href="#claim">claim</a>
+  <a class="nl" href="#pulse">pulse</a>
+  <a class="nl" href="#terminal">terminal</a>
+  <a class="nl" href="#refuse">refusals</a>
+  <a class="nl" href="#burn">burn</a>
+  <a class="nl" href="#road">roadmap</a>
+  <a class="nl" href="#token">token</a>
+  <a class="cta pri off" id="navSwap" href="#token">SWAP</a>
+  <a class="cta" href="https://github.com/DefiLeoo/YOINK" target="_blank" rel="noopener">GITHUB</a>
+</nav>
+
+<a id="top"></a>
+
+<!-- ══════════════ hero ══════════════ -->
+<section id="hero"><div class="wrap">
+  <div id="markwrap">
+    <div class="mkc"><canvas id="markCat"></canvas></div>
+    <div class="mkw"><canvas id="markWord"></canvas></div>
+  </div>
+
+  <p class="lede">a second brain that <b>marks its own homework</b></p>
+  <p class="kick">obsidian vault &nbsp;·&nbsp; terminal &nbsp;·&nbsp; zero dependencies</p>
+
+  <div class="badges">
+    <span class="badge">python <b>3.10+</b></span>
+    <span class="badge">deps <b>0</b></span>
+    <span class="badge">tests <b>201</b></span>
+    <span class="badge">scan <b>&lt;1s</b></span>
+    <span class="badge">no index &middot; <b>no database</b></span>
+    <span class="badge">MIT</span>
+  </div>
+
+  <div class="btns" style="margin-bottom:28px">
+    <a class="cta pri off" id="ctaSwap" href="#token">SWAP $YOINK</a>
+    <a class="cta" href="https://github.com/DefiLeoo/YOINK" target="_blank" rel="noopener">GITHUB</a>
+    <a class="cta" href="#pulse">THE PULSE</a>
+    <a class="cta" href="#token">THE TOKEN</a>
+  </div>
+
+  <div class="cabar">
+    <span class="t" id="caTkr">$YOINK</span>
+    <span class="ch"><i></i><span id="caChain">Robinhood Chain</span></span>
+    <code id="caTop" class="empty">NOT LIVE YET &middot; ADDRESS APPEARS HERE AT LAUNCH</code>
+    <span class="acts"><a class="cta pri off" id="heroSwap" href="#token">SWAP</a></span>
+  </div>
+</div>
+<a class="scroll" href="#film">
+  <s>keep going</s>
+  <b>00 &middot; twenty seconds</b>
+  <i></i>
+</a>
+</section>
+
+<!-- ══════════════ 00 ══════════════ -->
+<section id="film"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">00</span><h2>twenty seconds</h2><span class="ln"></span></div>
+  <div class="filmwrap rv" id="filmBox" tabindex="0" role="button"
+       aria-label="play the twenty-second film">
+    <video id="filmVid" poster="yoink-intro.jpg" muted loop playsinline autoplay
+      preload="auto"
+      width="1920" height="1080">
+      <source src="yoink-intro.mp4" type="video/mp4">
+      <source src="yoink-intro.webm" type="video/webm">
+    </video>
+    <div class="big-play"><i></i></div>
+    <div class="filmbar">
+      <b>YOINK 0.1.0</b>
+      <span>the whole thing, start to finish</span>
+      <span class="sp"></span>
+      <span id="filmHint">click to pause</span>
+    </div>
+  </div>
+  <div class="filmcap rv">
+    <span><b>no sound</b> &middot; it loops</span>
+    <span>plain markdown &rarr; a claim with a date &rarr; it settles itself</span>
+    <span>every number in it is <b>computed from the files</b></span>
+  </div>
+</div></section>
+
+<!-- ══════════════ 01 ══════════════ -->
+<section id="start"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">01</span><h2>thirty seconds</h2><span class="ln"></span></div>
+  <p class="one rv">Two commands. <b>Every number below is computed from the files</b>, not written
+  into the program.</p>
+  <div class="rv">
+    <div class="termhead"><i class="on"></i>bash<s>~</s></div>
+<pre class="term"><span class="p">$</span> pip install -e .
+<span class="p">$</span> yoink demo &amp;&amp; yoink   <span class="c"># a vault that already has a life</span></pre>
+  </div>
+  <div class="statstrip rv">
+    <div><b class="cnt" data-to="35">0</b><u>notes</u></div>
+    <div><b class="cnt" data-to="14">0</b><u>alive</u></div>
+    <div><b class="cnt g" data-to="21">0</b><u>never opened again</u></div>
+    <div><b class="cnt" data-to="5">0</b><u>claims settled</u></div>
+    <div><b class="cnt g" data-to="2">0</b><u>still open</u></div>
+    <div><b class="cnt g" data-to="35" data-pre="+">0</b><u>points of overconfidence</u></div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 02 ══════════════ -->
+<section id="claim"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">02</span><h2>a thought with a date on it</h2><span class="ln"></span></div>
+  <h3 class="big rv">Every note app counts notes.<br>None can tell you if one was <span class="v">right</span>.</h3>
+  <p class="one rv">Four lines of frontmatter turn a thought into a bet. When the date lands,
+  <code>yoink settle</code> reads the source and writes the answer back into the file.</p>
+
+  <div class="cols rv" style="align-items:start">
+    <div>
+      <div class="termhead"><i class="on"></i>one note<s>before &rarr; after, same file</s></div>
+<pre class="term">title: Robinhood testnet clears 10M
+<span class="g">claim</span>: tx count is at or above 10000000
+<span class="g">settles</span>: 2026-10-01
+<span class="g">reads</span>: chain:robinhood-testnet/txcount
+<span class="g">test</span>: gte 10000000
+<span class="g">confidence</span>: 0.7
+<span class="c">── the date lands, yoink settle runs ──</span>
+<span class="o">outcome</span>: false      <span class="o">reading</span>: 8412998
+<span class="o">read_from</span>: robinhood-testnet @ 9412998</pre>
+    </div>
+    <div class="cols3v">
+      <div><h4>you say it once</h4><p>Four lines. A number, a direction, a date, and where the
+        answer will come from.</p></div>
+      <div><h4>the world answers</h4><p>No model, no opinion &mdash; it reads the source you
+        named and writes the reading back into your file.</p></div>
+      <div><h4>it cannot be walked back</h4><p>A settled claim cannot settle twice, and the date
+        cannot move after the fact.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 03 ══════════════ -->
+<section id="pulse"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">03</span><h2>the pulse</h2><span class="ln"></span></div>
+  <h3 class="big rv">Two numbers nobody&rsquo;s note app<br>wants to print.</h3>
+
+  <div class="cols rv" style="align-items:start">
+    <div class="gauge" id="gauge">
+      <div class="row">
+        <div class="lab">said <b id="gSaid">0%</b><s>average confidence, folded to your side</s></div>
+        <div class="track"><i class="said" id="tSaid"></i></div>
+      </div>
+      <div class="row">
+        <div class="lab">right <b id="gRight">0%</b><s>how often that side was the right one</s></div>
+        <div class="track"><i class="right" id="tRight"></i></div>
+      </div>
+      <div class="gapbar">
+        <div class="n" id="gGap">+0</div>
+        <div class="t"><b>points of overconfidence.</b> said &minus; right. It cannot be improved by
+          writing more notes &mdash; only by being right, or saying a smaller number and meaning it.</div>
+      </div>
+      <div class="scout"><canvas class="sc"></canvas>
+        <div class="sw"><b>this number is the whole product.</b>
+          Everything else on this page exists to make it honest.</div></div>
+      <div class="scale">
+        <div class="sh">brier score &middot; <span style="color:var(--gold)">0.388</span></div>
+        <div class="sbar">
+          <div class="ax"></div>
+          <div class="tick tstart" style="left:0%"><s>0 · perfect</s></div>
+          <div class="tick" style="left:25%"><s>0.25 · a coin</s></div>
+          <div class="tick tend" style="left:100%"><s>1 · certain and wrong</s></div>
+          <div class="you" id="sYou" style="left:0%"><s>0.388</s></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="gauge">
+        <div class="vault">
+          <canvas id="donut" width="176" height="176"></canvas>
+          <div class="vkey">
+            <div><i style="background:var(--lit)"></i>alive <b>14</b><s>40%</s></div>
+            <div><i style="background:var(--gold)"></i>dead <b>21</b><s>60%</s></div>
+            <div><i style="background:var(--line2)"></i>notes <b>35</b><s>851 w</s></div>
+            <div><i style="background:var(--line2)"></i>links <b>16</b><s>all resolve</s></div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:20px"><b>Alive</b> if something links to it, it links to something, you
+      came back after the day you saved it, or it carries a bet that has not closed. Otherwise
+      <span class="g">dead</span> &mdash; a third of most vaults, and invisible, which is why people
+      believe their vault is working.</p>
+      <p style="color:var(--dim);font-size:11.5px">From <code>yoink demo</code> on a fixed seed.
+      <code>scripts/figures.py --check</code> fails if this page and the code disagree.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 04 ══════════════ -->
+<section id="terminal"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">04</span><h2>the terminal &middot; type into it</h2><span class="ln"></span></div>
+  <p class="one rv"><span class="g">Gold marks what needs you</span> &mdash; a claim that is due, a link
+  that dangles, the share of your vault that is dead. Everything healthy is green and quiet.
+  <b>This one is real</b>: the refusals below are the same rules the program runs, and they run
+  in your browser. Nothing here signs anything.</p>
+
+  <div class="livet rv" id="lt">
+    <div class="lth">
+      <i></i><b>yoink@vault</b><s>~/demo-vault &middot; 35 notes &middot; 14 alive &middot; +35 pts</s>
+      <span class="ltchips">
+        <em class="ok">ENGINE READY</em><em class="run" id="ltMode">AUTORUN</em><em>NO SIGNER</em><em>NO TRADES</em>
+      </span>
+    </div>
+    <div class="sweep"></div><div class="flick"></div>
+    <div class="ltout" id="ltOut" tabindex="0"></div>
+    <div class="ltin">
+      <span class="ps">$</span>
+      <input id="ltCmd" autocomplete="off" autocapitalize="off" spellcheck="false"
+        aria-label="terminal command" placeholder="type a command &mdash; or press &uarr; for the last one">
+    </div>
+    <div class="ltsug" id="ltSug"></div>
+    <div class="ltfoot">
+      <span class="bars"><i></i><i></i><i></i><i></i><i></i></span>
+      <span>rules <b>live</b></span>
+      <span>lines <b id="ltCount">0</b></span>
+      <span>uptime <b id="ltUp">0s</b></span>
+      <span class="sp"></span>
+      <span>python <b>3.10+</b></span>
+      <span>deps <b>0</b></span>
+      <span>tests <b>201</b></span>
+    </div>
+  </div>
+  <div class="panes rv">
+    <div><kbd>1</kbd><b>VAULT</b><span>the list, filtered</span></div>
+    <div><kbd>2</kbd><b>NOTE</b><span>the note, wrapped</span></div>
+    <div><kbd>3</kbd><b>LINKS</b><span>&larr; in, &rarr; out</span></div>
+    <div><kbd>4</kbd><b>PULSE</b><span>alive, dead, the gap</span></div>
+  </div>
+
+  <div class="keys rv" style="margin-top:1px">
+    <div><kbd>j k</kbd><span>move</span></div>
+    <div><kbd>⏎</kbd><span>open</span></div>
+    <div><kbd>/</kbd><span>search · no index, never stale</span></div>
+    <div><kbd>a d c</kbd><span>all · dead · claims</span></div>
+    <div><kbd>u o</kbd><span>due · orphans</span></div>
+    <div><kbd>t g</kbd><span>tags · graph</span></div>
+    <div><kbd>s</kbd><span>settle everything due</span></div>
+    <div><kbd>r</kbd><span>rescan from disk</span></div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 05 ══════════════ -->
+<section id="sources"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">05</span><h2>where an answer comes from</h2><span class="ln"></span></div>
+  <p class="one rv">A claim is only worth making if somebody who was not there can check it.</p>
+  <div class="tbl rv"><table>
+    <thead><tr><th style="width:40%">source</th><th>what it reads</th></tr></thead>
+    <tbody>
+      <tr><td><code>file:data/readings.json#chain.block</code></td><td>a JSON file, by key path</td></tr>
+      <tr><td><code>csv:bars.csv#close@2026-10-01</code></td><td>a column, on a date</td></tr>
+      <tr><td><code>chain:robinhood-testnet/blocknumber</code></td><td>a public chain, over JSON&#8209;RPC</td></tr>
+      <tr><td><code>manual:https://…</code></td><td>you read it &mdash; and <b>the URL is recorded</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols3 rv" style="margin-top:26px">
+    <div><h4>a number nobody owns</h4><p><code>robinhood</code> 4663 &middot;
+      <code>robinhood-testnet</code> 46630 &middot; <code>ethereum</code> 1.</p></div>
+    <div><h4>it checks the chain id</h4><p>Calls <code>eth_chainId</code> first and <b>refuses if the
+      endpoint reports a different chain</b> than the claim named.</p></div>
+    <div><h4>it cannot spend</h4><p>Four methods, all four read. No signing, no keys, no wallet &mdash;
+      <b>and a test parses the file to prove the words are not there.</b></p></div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 06 ══════════════ -->
+<section id="refuse"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">06</span><h2>what it refuses</h2><span class="ln"></span></div>
+  <h3 class="big rv">This is the part that makes the score mean anything.</h3>
+  <div class="rv">
+    <div class="refuse"><code>--claim "it will moon"</code>
+      <span><b>✗ refused</b> &mdash; &ldquo;moon&rdquo; cannot be settled by reading a number. Say what number,
+      and which way.</span></div>
+    <div class="refuse"><code>--settles 2020-01-01</code>
+      <span><b>✗ refused</b> &mdash; not in the future. You cannot bet on yesterday&rsquo;s race.</span></div>
+    <div class="refuse"><code>--reads nowhere</code>
+      <span><b>✗ refused</b> &mdash; not a source. Use <code>file:</code> <code>csv:</code>
+      <code>chain:</code> <code>manual:</code></span></div>
+    <div class="refuse"><code>--test "goes up"</code>
+      <span><b>✗ refused</b> &mdash; not a test. Use <code>gte 10</code> <code>lte 3.5</code>
+      <code>gt 0</code> <code>eq 1</code> <code>between 2 4</code></span></div>
+  </div>
+  <p class="one rv" style="margin:22px 0 0"><b>A settled claim cannot be settled again</b>, and a claim
+  cannot be attached to a date that has passed. No looking, then settling differently.</p>
+</div></section>
+
+<!-- ══════════════ 07 ══════════════ -->
+<section id="disk"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">07</span><h2>on disk</h2><span class="ln"></span></div>
+  <div class="cols rv">
+    <div>
+      <div class="termhead"><i class="on"></i>~/yoink-vault<s>the whole storage layer</s></div>
+<pre class="term">~/yoink-vault/
+├── 2026-09-11-robinhood-chain.md
+├── claims-need-a-date.md
+├── data/readings.json   <span class="c">← claims settle against this</span>
+└── .yoink/ledger.jsonl  <span class="o">← the only file that is not a note</span></pre>
+    </div>
+    <div>
+      <h3 class="big" style="font-size:clamp(21px,2.4vw,30px)">No database. No index.<br>No second copy of the truth.</h3>
+      <p>Everything &mdash; the graph, the search, the pulse &mdash; is recomputed from the files every
+      run. Ten thousand notes scan in under a second.</p>
+      <p>The ledger is append-only, each line hashed over the one before it:
+      <code>sha256( seq | at | kind | body | hash&#8331;&#8321; )</code>. A scoreboard you can quietly edit
+      is not a scoreboard &mdash; change one confidence after a bad outcome and
+      <code>yoink doctor</code> names the line.</p>
+      <p><b>Delete yoink and nothing is lost</b>, because there was never anything but your files.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 08 ══════════════ -->
+<section id="token"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">08</span><h2>the token</h2><span class="ln"></span></div>
+  <div class="tokgrid rv">
+    <div>
+      <canvas id="tokCat" width="272" height="208"></canvas>
+      <div class="tokname" id="tokName">$YOINK</div>
+      <div class="tokchain">on <b id="tokChain">ROBINHOOD CHAIN</b> &middot; chain <span id="tokId">4663</span></div>
+
+      <div class="calabel">contract address</div>
+      <div class="cabox">
+        <code id="caText" class="empty">NOT LIVE YET &middot; ADDRESS APPEARS HERE AT LAUNCH</code>
+        <button class="cta" id="caCopy" style="background:none;cursor:pointer">copy</button>
+      </div>
+
+      <div class="btns" style="margin-top:18px;position:relative">
+        <a class="cta pri off" id="lnSwap" href="#token">SWAP $YOINK</a>
+        <a class="cta" href="#chartbox">CHART</a>
+        <a class="cta off" id="lnExp" href="#token">EXPLORER</a>
+        <a class="cta off" id="lnX" href="#token">X</a>
+      </div>
+
+      <p style="margin-top:20px;font-size:12px;position:relative">The mark is a community token on
+      Robinhood Chain &mdash; the same chain a <code>chain:</code> claim reads a block height from.
+      <b>The repository holds nothing, trades nothing and has no market in it.</b></p>
+    </div>
+    <div>
+      <div class="stat"><u>network</u><b id="pNet">ROBINHOOD CHAIN</b></div>
+      <div class="stat"><u>pair</u><b class="wait" id="pPair">&mdash;</b></div>
+      <div class="stat"><u>price</u><b class="wait" id="pPrice">&mdash;</b></div>
+      <div class="stat"><u>liquidity</u><b class="wait" id="pLiq">&mdash;</b></div>
+      <div class="stat"><u>24h volume</u><b class="wait" id="pVol">&mdash;</b></div>
+      <div class="stat"><u>pool</u><b id="pPool">not connected</b></div>
+      <div class="stat"><u>status</u><b class="beat idle" id="pBeatWrap"><i></i><span id="pStat">not live yet</span></b></div>
+      <p style="margin-top:18px;font-size:11.5px;color:var(--dim)">Nothing is deployed yet. When the
+      mark is live on a pool the indexers can see, the pair, the price and the chart fill
+      themselves in.</p>
+    </div>
+  </div>
+
+  <div id="chartbox" class="rv">
+    <div class="ch"><b>LIVE CHART</b><span>powered by GeckoTerminal</span><s id="chPair">&mdash;</s></div>
+    <div id="chartWait"><b>waiting for a pool</b>
+      The chart mounts by itself the moment an address is set and a pair is indexed.</div>
+    <iframe id="chartFrame" style="display:none" title="price chart" allow="clipboard-write"
+      allowfullscreen></iframe>
+  </div>
+</div></section>
+
+
+<!-- ══════════════ 09 ══════════════ -->
+<section id="burn"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">09</span><h2>the burn window</h2><span class="ln"></span></div>
+  <h3 class="big rv">Every <span class="g" id="burnHrs">3</span> hours,
+  the supply gets <span class="g">smaller</span>.</h3>
+  <p class="one rv">A share of what is left is sent to an address nobody holds the keys to.
+  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below is the real one:
+  it is counting to the next burn right now.</p>
+
+  <div class="burnhead rv">
+    <span class="chip" id="burnChip"><i></i><span id="burnState">not live yet</span></span>
+    <span class="chip">burns <b id="burnEvery" style="color:var(--green);font-weight:700">every 3h</b></span>
+    <span class="chip">share <b id="burnShare" style="color:var(--gold);font-weight:700">&mdash;</b></span>
+    <span class="chip" style="max-width:100%;overflow:hidden;text-overflow:ellipsis">at
+      <b id="burnTimes" style="color:var(--green);font-weight:700">&mdash;</b></span>
+  </div>
+
+  <div class="clockgrid rv">
+    <div>
+      <div class="clocklab">next burn in</div>
+      <div class="clock">
+        <div class="u"><div class="d" id="cH"><b>0</b><b>0</b></div><s>hours</s></div>
+        <div class="sep">:</div>
+        <div class="u"><div class="d" id="cM"><b>0</b><b>0</b></div><s>minutes</s></div>
+        <div class="sep">:</div>
+        <div class="u"><div class="d" id="cS"><b>0</b><b>0</b></div><s>seconds</s></div>
+      </div>
+      <div class="dayring">
+        <div class="rr"><i id="ringFill" style="width:0%"></i></div>
+        <div class="rl"><span id="ringNow">00:00:00 UTC</span><span id="ringPct">0% of the way there</span></div>
+      </div>
+      <div class="scout"><canvas class="sc"></canvas>
+        <div class="sw">the clock is already real and already counting.
+          <b>the amounts fill in the moment there is an address.</b></div></div>
+    </div>
+    <div>
+      <div class="clocklab">the numbers</div>
+      <div class="burnstat"><u>total supply</u><b class="pend" id="bSupply">&mdash;</b></div>
+      <div class="burnstat"><u>burned to date</u><b id="bBurned" class="g pend">&mdash;</b></div>
+      <div class="burnstat"><u>remaining</u><b class="pend" id="bLeft">&mdash;</b></div>
+      <div class="burnstat"><u>burns so far</u><b id="bRounds">0</b></div>
+      <div class="burnstat"><u>burn address</u><b class="pend" id="bAddr">&mdash;</b></div>
+      <p style="margin:16px 0 0;font-size:11.5px;color:var(--dim)">Every figure here is read from the
+      chain at launch. Until an address is set they stay dashes &mdash; <b>a number with nothing
+      behind it is worse than no number</b>.</p>
+    </div>
+  </div>
+
+  <div class="burnrules rv">
+    <div><h4>fixed before the first one</h4><p>How often, how much, and which address &mdash; all
+      three are set before a single burn runs. A rule you can change after seeing the result is
+      not a rule.</p></div>
+    <div><h4>you can check every one</h4><p>Each burn is a transaction. The ledger below carries
+      its hash, so you verify it on the explorer instead of believing this page.</p></div>
+    <div><h4>it never comes back</h4><p>The burn address has no owner and no keys. Tokens that go
+      there are out of the supply for good &mdash; that is the whole point.</p></div>
+  </div>
+
+  <div class="ledger rv">
+    <div class="lh"><b>BURN LEDGER</b><span>window &middot; amount &middot; transaction</span></div>
+    <div class="empty" id="burnEmpty"><b>no burns yet</b>
+      Nothing is deployed. The first row lands here the first time the clock hits zero on a
+      live pool &mdash; with its amount and its transaction.</div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 10 ══════════════ -->
+<section id="road"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">10</span><h2>roadmap</h2><span class="ln"></span></div>
+  <div class="cols rv" style="align-items:center;gap:26px">
+    <p class="one" style="margin:0">No dates. <b>A date you cannot settle is not a claim</b> &mdash;
+    and this project would have to refuse its own roadmap. So: order, not calendar.</p>
+    <div class="roadbar" style="margin:0">
+      <span class="c">shipped <b>2</b> of 6</span>
+      <span class="m"><i></i></span>
+      <span class="c">next &middot; <b style="color:var(--gold)">the mark goes live</b></span>
+    </div>
+  </div>
+
+  <div class="road rv" style="margin-top:24px">
+    <div class="rstep done">
+      <div class="rt"><span class="rn">00</span><span class="rh">the tool</span><span class="tag">shipped</span></div>
+      <p>The vault scanner, the four panes, claims with a date, settlement from four source kinds,
+      the hash-chained ledger, the refusals. 201 tests, zero dependencies, MIT.</p></div>
+    <div class="rstep done">
+      <div class="rt"><span class="rn">01</span><span class="rh">the pulse</span><span class="tag">shipped</span></div>
+      <p>Alive against dead, said against right, and the gap between them printed where you cannot
+      avoid reading it.</p></div>
+    <div class="rstep now">
+      <div class="rt"><span class="rn">02</span><span class="rh">the mark goes live</span><span class="tag">next</span></div>
+      <p>A pool on Robinhood Chain. The address lands on this page, the chart mounts itself, and
+      every field that is a dash today fills from the chain.</p></div>
+    <div class="rstep">
+      <div class="rt"><span class="rn">03</span><span class="rh">the window opens</span><span class="tag">planned</span></div>
+      <p>The burn runs on the clock above, and each one is written into the ledger with its
+      transaction hash so it can be checked without trusting this page.</p></div>
+    <div class="rstep">
+      <div class="rt"><span class="rn">04</span><span class="rh">settle in public</span><span class="tag">planned</span></div>
+      <p>A shared board: claims, confidences and outcomes that anybody can read. The score stops
+      being a number you keep on your own machine.</p></div>
+    <div class="rstep">
+      <div class="rt"><span class="rn">05</span><span class="rh">more sources</span><span class="tag">planned</span></div>
+      <p>More things a claim is allowed to read, each one added the same way: only if a stranger
+      can check the answer.</p></div>
+  </div>
+</div></section>
+
+<!-- ══════════════ 11 ══════════════ -->
+<section id="limits"><div class="wrap">
+  <div class="eyebrow rv"><span class="num">11</span><h2>honest limits</h2><span class="ln"></span></div>
+  <div class="limits rv">
+    <div><b>tamper-evident</b><span>Not tamper-proof. Whoever holds the ledger can rewrite it end to
+      end &mdash; a test proves it. It catches the single edit people actually make.</span></div>
+    <div><b>the demo is a demo</b><span>Reproducible, and not a record of anyone&rsquo;s forecasting.
+      Yours starts empty.</span></div>
+    <div><b>the endpoint can be down</b><span>Then the claim stays open rather than settling on a
+      guess. <code>yoink doctor --chain</code> says who answered.</span></div>
+    <div><b>it predicts nothing</b><span>No model, no opinion. It records what you said, reads what
+      happened, and does the subtraction.</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><h4>docs</h4>
+      <a href="https://github.com/DefiLeoo/YOINK/blob/main/docs/VAULT.md" target="_blank" rel="noopener">the vault format</a>
+      <a href="https://github.com/DefiLeoo/YOINK/blob/main/docs/CLAIMS.md" target="_blank" rel="noopener">claims &amp; settlement</a>
+      <a href="https://github.com/DefiLeoo/YOINK/blob/main/docs/SCORING.md" target="_blank" rel="noopener">scoring</a>
+      <a href="https://github.com/DefiLeoo/YOINK/blob/main/docs/TERMINAL.md" target="_blank" rel="noopener">the terminal</a>
+    </div>
+    <div><h4>code</h4>
+      <a href="https://github.com/DefiLeoo/YOINK" target="_blank" rel="noopener">github</a>
+      <a href="https://github.com/DefiLeoo/YOINK/blob/main/LICENSE" target="_blank" rel="noopener">MIT licence</a>
+      <a href="https://github.com/DefiLeoo/YOINK/issues" target="_blank" rel="noopener">issues</a>
+    </div>
+    <div><h4>the mark</h4>
+      <a href="#token">the token</a><a href="#chartbox">live chart</a>
+      <a id="fSwap" href="#token">swap</a>
+    </div>
+    <div><h4>run it</h4>
+      <a href="#start">thirty seconds</a><a href="#pulse">the pulse</a>
+      <a href="#refuse">what it refuses</a>
+    </div>
+  </div>
+  <div class="fnote">
+    Not affiliated with, endorsed by, or connected to Robinhood Markets, Inc. Robinhood Chain is
+    read the way any public chain is read: over its public RPC, without permission and without an
+    account. The token is separate from the tool.
+    <b style="color:var(--muted)">Nothing here is financial advice, and nothing here is a guarantee
+    of profit.</b><br>
+    MIT &middot; built for the fun of it &middot; <span style="color:var(--lit)">( o.o)</span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE MARK — the same pixel grid as scripts/banner.py, lit on a canvas.
+   `#` green, `o` gold. The cat has the coin.
+   ══════════════════════════════════════════════════════════════════════ */
+const MASCOT=[
+  "...........#####.......#####.",
+  "...........#GGG#.......#GGG#.",
+  "...........#GYG#########GYG#.",
+  "...........#LLLLLLLLLLLLLLL#.",
+  "...........#LLLLLLLLLLLLLLL#.",
+  "...........#LDDDDLLLLLDDDDL#.",
+  "...........#LDEEDLLLLLDEEDL#.",
+  "..######...#LDEEDLLLLLDEEDL#.",
+  ".##GLGG##..#LDDDDLLLLLDDDDL#.",
+  "##GGLLGG#.##LLLLLLLLLLLLLLL#.",
+  "#GGGLLGG###LLLLLLLLLLLLLLLL#.",
+  "#GGGLLGG##LLLLLLLLLLLLLLLGG##",
+  "#GGLLGG##LLLLLLLLLLLLLLLLGGG#",
+  "##GGLLG#LLLLLLLLLLLLLLLLLGGG#",
+  ".##GGLLGLLLLLLLLLLLLLLLLLGGG#",
+  "..###GLGGLLLLLLLLLLLLLLLLGGG#",
+  "....##GLGGLLLLLLLLLLLLLLLGGG#",
+  ".....#####LLLLLLLLLLLLLLLGGG#",
+  ".........##GGGGGGGGGGGGGGGGG#",
+  "..........##LLL######LLL#####",
+  "...........#YYY#....#YYY#....",
+  "...........#####....#####...."
+];
+const MINI=[
+  "LL.......LL",
+  "LLL.....LLL",
+  "LLLLLLLLLLL",
+  "LLLLLLLLLLL",
+  "L.EE...EE.L",
+  "L.EE...EE.L",
+  "LLLLLLLLLLL",
+  ".GGGGGGGGG.",
+  "..YY...YY.."
+];
+const GLYPHS={
+  Y:["#...#","#...#",".#.#.","..#..","..#..","..#..","..#.."],
+  O:[".###.","#...#","#...#","#...#","#...#","#...#",".###."],
+  I:["#####","..#..","..#..","..#..","..#..","..#..","#####"],
+  N:["#...#","##..#","#.#.#","#.#.#","#..##","#...#","#...#"],
+  K:["#...#","#..#.","#.#..","##...","#.#..","#..#.","#...#"]
+};
+const GREEN=[143,217,95], LEAF=[169,226,111], GOLD=[255,215,106],
+      LIT=[186,234,110], DARK=[64,116,40];
+/* L light · G green · D the eye patch · E the eye · Y gold.
+   `#` is the outline, and the outline is the unlit gap between tiles. */
+const INK={L:LIT, G:GREEN, D:DARK, E:GOLD, Y:GOLD};
+const hash=n=>{const x=Math.sin(n*127.1)*43758.5453;return x-Math.floor(x);};
+
+/* where the pointer is, in page space — everything that looks at you reads this */
+const AIM={x:innerWidth*0.5, y:innerHeight*0.42, has:false};
+addEventListener('pointermove',e=>{AIM.x=e.clientX;AIM.y=e.clientY;AIM.has=true;},{passive:true});
+(function pointerGlow(){
+  const g=$('curglow'), d=$('curdot');
+  if(!g||!d||RM||!matchMedia('(hover:hover) and (pointer:fine)').matches){
+    if(g)g.style.display='none'; if(d)d.style.display='none'; return;
+  }
+  let gx=AIM.x, gy=AIM.y;
+  addEventListener('pointerover',e=>{
+    const hot=e.target.closest('a,button,input,.livet,.cta');
+    g.classList.toggle('hot',!!hot);
+  },{passive:true});
+  (function tick(){
+    gx+=(AIM.x-gx)*0.16; gy+=(AIM.y-gy)*0.16;
+    g.style.transform='translate3d('+gx.toFixed(1)+'px,'+gy.toFixed(1)+'px,0)';
+    d.style.transform='translate3d('+AIM.x.toFixed(1)+'px,'+AIM.y.toFixed(1)+'px,0)';
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* the eyes, found in the grid so the drawing can move them */
+function eyesOf(rows){
+  const pts=[];
+  rows.forEach((row,y)=>[...row].forEach((ch,x)=>{ if(ch==='E') pts.push([x,y]); }));
+  if(!pts.length) return [];
+  const xs=pts.map(q=>q[0]), mid=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2;
+  const box=a=>({x0:Math.min.apply(null,a.map(q=>q[0])),x1:Math.max.apply(null,a.map(q=>q[0])),
+                 y0:Math.min.apply(null,a.map(q=>q[1])),y1:Math.max.apply(null,a.map(q=>q[1]))});
+  return [pts.filter(q=>q[0]<=mid), pts.filter(q=>q[0]>mid)].filter(a=>a.length).map(box);
+}
+/* draw both pupils, aimed at the pointer */
+function pupils(ctx,model,ox,oy,cell,gap,rect,flip){
+  const E=model.eyes; if(!E||!E.length) return;
+  const pitch=cell+gap;
+  const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+  let dx=AIM.x-cx, dy=AIM.y-cy;
+  const d=Math.hypot(dx,dy)||1, k=Math.min(1,d/230);
+  dx=dx/d*k; dy=dy/d*k;
+  if(flip) dx=-dx;
+  ctx.shadowBlur=0;
+  E.forEach(e=>{
+    const w=(e.x1-e.x0+1)*pitch-gap, h=(e.y1-e.y0+1)*pitch-gap;
+    const pw=Math.max(1,cell*1.18), ph=Math.max(1,cell*1.18);
+    const bx=ox+e.x0*pitch + (w-pw)/2 + dx*(w-pw)/2*0.9;
+    const by=oy+e.y0*pitch + (h-ph)/2 + dy*(h-ph)/2*0.9;
+    ctx.fillStyle='#05100 6'.replace(' ','');
+    ctx.fillRect(Math.round(bx),Math.round(by),Math.ceil(pw),Math.ceil(ph));
+  });
+}
+
+/* a pixel grid becomes a dot list; unknown characters are background */
+function gridModel(rows, k){
+  const D=[];
+  rows.forEach((row,y)=>[...row].forEach((ch,x)=>{
+    const c=INK[ch]; if(!c) return;
+    D.push({x:x, y:y, c:c, k:k||'cat', coin:ch==='E'});
+  }));
+  return {dots:D, cols:rows[0].length, rows:rows.length, eyes:eyesOf(rows)};
+}
+/* the wordmark, from the 5x7 alphabet */
+function wordModel(){
+  const D=[]; let col=0;
+  "YOINK".split('').forEach((L,i)=>{
+    const g=GLYPHS[L], gold=(i===4);
+    g.forEach((row,y)=>[...row].forEach((ch,x)=>{
+      if(ch==='.') return;
+      D.push({x:col+x, y:y, c:gold?GOLD:LEAF, k:'w'});
+    }));
+    col+=6;
+  });
+  return {dots:D, cols:col-1, rows:7};
+}
+
+function renderer(canvas, model, opt){
+  opt=opt||{};
+  const ctx=canvas.getContext('2d');
+  let W=0,H=0,cell=0,gap=0,DPR=1,ox=0,oy=0;
+  let px=0, py=0;                /* pointer, in -1..1 */
+  const N=model.dots.length;
+  const born=model.dots.map((d,i)=>
+    (d.x/model.cols)*0.55 + hash(i*3.7)*0.28);   /* a sweep, with grit */
+
+  function size(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    /* px: an exact sprite — whole pixels, no gap, nothing to blur */
+    if(opt.px){
+      cell=opt.px; gap=0;
+      W=model.cols*cell; H=model.rows*cell;
+      canvas.style.width=W+'px'; canvas.style.height=H+'px';
+      canvas.width=Math.round(W*DPR); canvas.height=Math.round(H*DPR);
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      ox=0; oy=0; return;
+    }
+    const rect=canvas.getBoundingClientRect();
+    W=Math.max(40,rect.width);
+    /* the lockup must fit: cols*pitch - gap <= W, with pitch = cell*1.24 */
+    cell=Math.max(2, (W*0.985)/(model.cols*1.24 - 0.24));
+    /* a fixed frame also has to hold it vertically */
+    if(opt.fixedH){
+      const byH=(opt.fixedH*0.94)/(model.rows*1.24 - 0.24);
+      cell=Math.max(2, Math.min(cell, byH));
+    }
+    gap=cell*0.24;
+    const pitch=cell+gap;
+    H=(model.rows+1)*pitch;
+    if(opt.fixedH) H=opt.fixedH;
+    canvas.width=Math.round(W*DPR); canvas.height=Math.round(H*DPR);
+    if(!opt.fixedH) canvas.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ox=(W-(model.cols*pitch-gap))/2;
+    oy=(H-(model.rows*pitch-gap))/2;
+  }
+  size();
+
+  if(!opt.static){
+    canvas.addEventListener('pointermove',e=>{
+      const r=canvas.getBoundingClientRect();
+      px=((e.clientX-r.left)/r.width)*2-1;
+      py=((e.clientY-r.top)/r.height)*2-1;
+    });
+    canvas.addEventListener('pointerleave',()=>{px=0;py=0;});
+  }
+
+  let t0=performance.now(), glitchAt=5.5, gl=null, blinkAt=3.2, blink=0;
+  function frame(now){
+    const T=(now-t0)/1000;
+    ctx.clearRect(0,0,W,H);
+    const pitch=cell+gap;
+
+    /* an occasional slice that tears sideways */
+    if(!RM && T>glitchAt){ gl={row:Math.floor(Math.random()*model.rows),
+      h:1, dx:(Math.random()<0.5?-1:1)*cell*0.9, until:T+0.07};
+      glitchAt=T+4.5+Math.random()*5.5; }
+    if(gl && T>gl.until) gl=null;
+    /* the coin blinks */
+    if(!RM && T>blinkAt){ blink=T+0.13; blinkAt=T+2.6+Math.random()*3.6; }
+
+    const scan=((T*0.45)%1.5)*model.rows-1;   /* a line travelling down */
+
+    for(let i=0;i<N;i++){
+      const d=model.dots[i];
+      let a = RM ? 1 : Math.min(1,Math.max(0,(T-born[i])*2.6));
+      if(a<=0) continue;
+      /* phosphor shimmer */
+      a *= 0.88 + 0.12*Math.sin(T*1.9 + hash(i)*30);
+      /* the scan line brightens what it crosses */
+      const ds=Math.abs(d.y-scan);
+      const hot=Math.max(0,1-ds*1.4);
+      /* parallax toward the pointer, front rows lead */
+      const lead=(d.k==='cat'?1.25:0.75);
+      let X=ox+d.x*pitch + px*lead*cell*0.34;
+      let Y=oy+d.y*pitch + py*lead*cell*0.34;
+      if(gl && d.y>=gl.row && d.y<gl.row+gl.h) X+=gl.dx;
+
+      let c=d.c;
+      if(blink>T && d.coin) c=[86,78,44];
+      const A=Math.min(1,a*(0.86+0.5*hot));
+      ctx.shadowBlur=cell*(0.55+1.5*hot);
+      ctx.shadowColor='rgba('+c[0]+','+c[1]+','+c[2]+',.55)';
+      ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+A.toFixed(3)+')';
+      ctx.fillRect(Math.round(X),Math.round(Y),Math.ceil(cell),Math.ceil(cell));
+    }
+    ctx.shadowBlur=0;
+    pupils(ctx,model,ox+px*1.25*cell*0.34,oy+py*1.25*cell*0.34,cell,gap,
+           canvas.getBoundingClientRect(),false);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  addEventListener('resize',()=>{ size(); });
+  return {size};
+}
+
+const CREATURE=gridModel(MASCOT);
+renderer($('markCat'), CREATURE);
+renderer($('markWord'), wordModel());
+/* the nav carries the real creature, drawn as a crisp 2x sprite,
+   and the name in the same pixels as the hero */
+const NARROW = innerWidth < 760;
+renderer($('navCat'), CREATURE, {px:2});
+renderer($('navWord'), wordModel(), {px:NARROW?2:3});
+renderer($('tokCat'), gridModel(MASCOT), {fixedH:208, static:true});
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONFIG — paste the address and the swap, everything else wires itself
+   ══════════════════════════════════════════════════════════════════════ */
+const CONFIG={
+  ticker:'$YOINK', chain:'ROBINHOOD CHAIN', chainId:'4663',
+  ca:'',                 // ← the contract address
+  network:'robinhood',   // geckoterminal / dexscreener slug
+  pool:'',               // optional: the pair address
+  swap:'',               // the swap, with the address appended: <swap><ca>
+  swapUrl:'',            // …or a full URL instead
+  explorer:'', x:'',
+  /* the burn. everything empty until it is real — the clock runs regardless. */
+  burn:{ everyHours:3, share:'', epochUTC:0,   // share: e.g. '2%' once it is fixed
+        supply:'', burned:'', address:'', live:false }
+};
+const SWAP_URL = CONFIG.swapUrl || (CONFIG.ca && CONFIG.swap ? CONFIG.swap+CONFIG.ca : '');
+(function apply(){
+  ['caTkr','tokName'].forEach(i=>{const e=$(i);if(e)e.textContent=CONFIG.ticker;});
+  const cc2=$('caChain'); if(cc2) cc2.textContent='Robinhood Chain';
+  ['tokChain','pNet'].forEach(i=>{const e=$(i);if(e)e.textContent=CONFIG.chain;});
+  const ti=$('tokId'); if(ti) ti.textContent=CONFIG.chainId;
+  ['caTop','caText'].forEach(id=>{
+    const e=$(id); if(!e) return;
+    if(CONFIG.ca){ e.textContent=CONFIG.ca; e.classList.remove('empty'); }
+  });
+  const cc=$('caCopy');
+  if(cc){
+    if(!CONFIG.ca) cc.style.display='none';
+    cc.addEventListener('click',()=>{
+      navigator.clipboard&&navigator.clipboard.writeText(CONFIG.ca).then(()=>{
+        cc.textContent='copied'; setTimeout(()=>cc.textContent='copy',1400);},()=>{});
+    });
+  }
+  ['navSwap','heroSwap','ctaSwap','lnSwap','fSwap'].forEach(id=>{
+    const e=$(id); if(!e) return;
+    if(SWAP_URL){ e.href=SWAP_URL; e.target='_blank'; e.rel='noopener'; e.classList.remove('off'); }
+    else e.classList.add('off');
+  });
+  [['lnExp','explorer'],['lnX','x']].forEach(([id,k])=>{
+    const e=$(id); if(!e) return;
+    if(CONFIG[k]){ e.href=CONFIG[k]; e.target='_blank'; e.rel='noopener'; e.classList.remove('off'); }
+  });
+})();
+
+/* ── the pulse, from `yoink demo` on a fixed seed ── */
+const P={said:75,right:40,gap:35,brier:0.388,alive:14,notes:35};
+function countUp(el,to,suf,pre){
+  const t0=performance.now();
+  (function s(t){const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);
+    el.textContent=(pre||'')+Math.round(to*e)+(suf||'');
+    if(k<1)requestAnimationFrame(s);})(t0);
+}
+function donut(){
+  const c=$('donut'); if(!c) return;
+  const dpr=Math.min(devicePixelRatio||1,2), S=176;
+  c.width=S*dpr; c.height=S*dpr; c.style.width=S+'px'; c.style.height=S+'px';
+  const g=c.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0);
+  const cx=S/2,cy=S/2,r=69,f=P.alive/P.notes;
+  g.clearRect(0,0,S,S); g.lineWidth=16; g.lineCap='butt';
+  g.shadowBlur=14; g.shadowColor='rgba(255,201,60,.40)';
+  g.strokeStyle='#FFC93C'; g.beginPath(); g.arc(cx,cy,r,0,Math.PI*2); g.stroke();
+  g.shadowColor='rgba(198,255,107,.55)'; g.strokeStyle='#C6FF6B';
+  g.beginPath(); g.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+f*Math.PI*2); g.stroke();
+  g.shadowBlur=0;
+  g.fillStyle='#E2F2D8'; g.font='700 28px JetBrains Mono, monospace';
+  g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(Math.round(f*100)+'%',cx,cy-6);
+  g.fillStyle='#8CB08A'; g.font='400 9.5px JetBrains Mono, monospace';
+  g.fillText('ALIVE',cx,cy+13);
+}
+let done=false;
+function runPulse(){
+  if(done) return; done=true;
+  countUp($('gSaid'),P.said,'%'); countUp($('gRight'),P.right,'%');
+  countUp($('gGap'),P.gap,'','+');
+  $('tSaid').style.width=P.said+'%'; $('tRight').style.width=P.right+'%';
+  setTimeout(()=>{$('sYou').style.left=(P.brier*100).toFixed(1)+'%';},160);
+  donut();
+}
+addEventListener('resize',()=>{if(done)donut();});
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  e.target.classList.add('in');
+  if(e.target.closest('#pulse')) runPulse();
+}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+
+/* ══════════════ the market panel ══════════════ */
+(function market(){
+  const NET=CONFIG.network;
+  const set=(id,v)=>{const e=$(id); if(e) e.textContent=v;};
+  const money=n=>{const x=Number(n); if(!isFinite(x)) return '—';
+    if(x>=1e9) return '$'+(x/1e9).toFixed(2)+'B';
+    if(x>=1e6) return '$'+(x/1e6).toFixed(2)+'M';
+    if(x>=1e3) return '$'+(x/1e3).toFixed(1)+'K';
+    return '$'+x.toFixed(2);};
+  const price=n=>{const x=Number(n); if(!isFinite(x)) return '—';
+    return '$'+(x<0.01?x.toPrecision(3):x.toFixed(4));};
+  let netErr=false;
+  const jget=u=>fetch(u,{headers:{accept:'application/json'}})
+    .then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
+    .catch(e=>{netErr=true;throw e;});
+  function mount(pool){
+    if(!pool) return;
+    const f=$('chartFrame'), w=$('chartWait');
+    f.src='https://www.geckoterminal.com/'+NET+'/pools/'+pool+
+          '?embed=1&info=0&swaps=0&grayscale=0&light_chart=0';
+    f.style.display='block'; if(w) w.style.display='none';
+    set('chPair',pool.slice(0,10)+'…');
+  }
+  let lastOk=0;
+  function paint(d){
+    set('pPair',d.pair||CONFIG.ticker); set('pPrice',price(d.price));
+    set('pLiq',money(d.liq)); set('pVol',money(d.vol));
+    set('pPool',d.pool?d.pool.slice(0,10)+'…':'not connected');
+    ['pPair','pPrice','pLiq','pVol'].forEach(i=>{const e=$(i); if(e) e.classList.remove('wait');});
+    lastOk=Date.now();
+    const w=$('pBeatWrap'); if(w) w.className='beat on';
+    set('pStat','live');
+  }
+  /* the heartbeat only ever reports a read that really happened */
+  setInterval(()=>{
+    if(!lastOk) return;
+    const n=Math.round((Date.now()-lastOk)/1000);
+    set('pStat', n<5 ? 'live · just now' : 'live · read '+n+'s ago');
+  },1000);
+  async function gecko(ca){
+    const j=await jget('https://api.geckoterminal.com/api/v2/networks/'+NET+'/tokens/'+ca+'/pools?page=1');
+    const p=(j.data||[])[0]; if(!p) return null; const a=p.attributes||{};
+    return {pool:a.address,pair:a.name,price:a.base_token_price_usd,
+            liq:a.reserve_in_usd,vol:(a.volume_usd||{}).h24};
+  }
+  async function dexs(ca){
+    const j=await jget('https://api.dexscreener.com/latest/dex/tokens/'+ca);
+    const p=(j.pairs||[])[0]; if(!p) return null;
+    return {pool:p.pairAddress,pair:(p.baseToken||{}).symbol+' / '+(p.quoteToken||{}).symbol,
+            price:p.priceUsd,liq:(p.liquidity||{}).usd,vol:(p.volume||{}).h24};
+  }
+  (async function boot(){
+    if(!CONFIG.ca && !CONFIG.pool){ set('pStat','not live yet'); return; }
+    if(CONFIG.pool){ mount(CONFIG.pool); set('pStat','pool set by hand'); }
+    else set('pStat','looking up the pool…');
+    let d=null;
+    if(CONFIG.ca){ d=await gecko(CONFIG.ca).catch(()=>null);
+                   if(!d) d=await dexs(CONFIG.ca).catch(()=>null); }
+    if(d){ paint(d); if(!CONFIG.pool) mount(d.pool); }
+    else if(!CONFIG.pool){
+      set('pStat', netErr?'lookup blocked on this page':'no pool indexed yet');
+      const w=$('chartWait');
+      if(w) w.innerHTML='<b>'+(netErr?'lookup blocked here':'no pool yet')+'</b>'+
+        (netErr?'This page could not reach the pool index. On a normal deploy it resolves by itself.'
+               :'The address is set, but no pair is indexed yet. The chart appears the moment liquidity is on a pool the indexers can see.');
+    }
+    setInterval(()=>{ if(CONFIG.ca) gecko(CONFIG.ca).then(x=>x&&paint(x)).catch(()=>{}); },60000);
+  })();
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE BURN WINDOW — a real countdown to a real epoch. The figures stay
+   dashes until CONFIG.burn carries something read off the chain.
+   ══════════════════════════════════════════════════════════════════════ */
+(function burnclock(){
+  const B=CONFIG.burn||{}, every=(B.everyHours||24)*3600*1000;
+  const cH=$('cH'), cM=$('cM'), cS=$('cS');
+  if(!cH) return;
+  const H = B.everyHours || 3;
+  const ev=$('burnEvery'); if(ev) ev.textContent='every '+H+'h';
+  const hr=$('burnHrs');   if(hr) hr.textContent=H;
+  const sh=$('burnShare');
+  if(sh) sh.textContent = B.share || 'set at launch';
+  /* spell out the hours it lands on, so nobody has to do the sum */
+  const ts=$('burnTimes');
+  if(ts){
+    const L=[]; for(let h=0;h<24;h+=H) L.push(String(h).padStart(2,'0')+':00');
+    ts.textContent = (L.length>6 ? L.slice(0,5).join(' · ')+' … '+L[L.length-1]
+                                 : L.join(' · ')) + ' UTC';
+  }
+  const set=(id,v)=>{const e=$(id); if(e) e.textContent=v;};
+  if(B.supply) set('bSupply',B.supply);
+  if(B.burned){ set('bBurned',B.burned); }
+  if(B.supply&&B.burned){
+    const a=Number(String(B.supply).replace(/[^0-9.]/g,'')),
+          b=Number(String(B.burned).replace(/[^0-9.]/g,''));
+    if(isFinite(a)&&isFinite(b)) set('bLeft',(a-b).toLocaleString('en-US'));
+  }
+  if(B.address) set('bAddr',B.address);
+  if(B.live){
+    const c=$('burnChip'); if(c) c.classList.add('live');
+    set('burnState','live · burning on the clock');
+  }
+  /* pad each digit into its own tile, so they read like a counter */
+  function digits(box,n){
+    const t=String(n).padStart(2,'0');
+    const b=box.children;
+    for(let i=0;i<2;i++){
+      if(!b[i] || b[i].textContent===t[i]) continue;
+      b[i].textContent=t[i];
+      b[i].classList.add('hit');
+      (e=>setTimeout(()=>e.classList.remove('hit'),190))(b[i]);
+    }
+  }
+  function tick(){
+    const now=Date.now();
+    const base=(B.epochUTC||0)*1000;
+    const since=((now-base)%every+every)%every;
+    const left=every-since;
+    const h=Math.floor(left/3600000), m=Math.floor(left/60000)%60, sec=Math.floor(left/1000)%60;
+    digits(cH,h); digits(cM,m); digits(cS,sec);
+    const pct=(since/every)*100;
+    const f=$('ringFill'); if(f) f.style.width=pct.toFixed(2)+'%';
+    const rp=$('ringPct'); if(rp) rp.textContent=pct.toFixed(1)+'% of the way there';
+    const rn=$('ringNow');
+    if(rn){ const d=new Date(now);
+      rn.textContent=[d.getUTCHours(),d.getUTCMinutes(),d.getUTCSeconds()]
+        .map(x=>String(x).padStart(2,'0')).join(':')+' UTC'; }
+    const rr=$('bRounds');
+    if(rr) rr.textContent = B.live ? Math.max(0,Math.floor((now-base)/every)) : '0';
+  }
+  tick(); setInterval(tick,250);
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE COUNTED STRIP — the demo numbers, counted up when they arrive
+   ══════════════════════════════════════════════════════════════════════ */
+(function strip(){
+  const els=[...document.querySelectorAll('.cnt')];
+  if(!els.length) return;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting||e.target.dataset.ran) return;
+    e.target.dataset.ran='1';
+    countUp(e.target, Number(e.target.dataset.to||0), '', e.target.dataset.pre||'');
+  }),{threshold:.3});
+  els.forEach(e=>o.observe(e));
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE RUNNER — the creature runs the page along a rail and points at
+   whatever section you are standing in.
+   ══════════════════════════════════════════════════════════════════════ */
+(function runner(){
+  const rail=$('rail'); if(!rail||RM) return;
+  const cv=$('railCat'), lab=$('railLab'), fill=$('railFill'), ticks=$('railTicks');
+  const secs=[...document.querySelectorAll('section[id]')].filter(x=>x.id!=='hero');
+  const NAMES={start:'thirty seconds',claim:'the claim',pulse:'the pulse',
+    terminal:'the terminal',sources:'sources',refuse:'refusals',disk:'on disk',
+    token:'the token',burn:'the burn',road:'roadmap',limits:'limits'};
+
+  /* ticks, one per section, placed by document position */
+  function layTicks(){
+    const H=document.body.scrollHeight-innerHeight;
+    ticks.innerHTML='';
+    secs.forEach(sec=>{
+      const at=Math.min(1,Math.max(0,(sec.offsetTop-innerHeight*0.35)/Math.max(1,H)));
+      const i=document.createElement('i');
+      i.style.left=(at*100).toFixed(2)+'%';
+      ticks.appendChild(i);
+    });
+  }
+
+  /* the creature, drawn small and bobbing, mirrored when he runs back */
+  const ctx=cv.getContext('2d');
+  const M=MASCOT, COLS=M[0].length, ROWS=M.length;
+  let cell=0, DPR=1;
+  function fit(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    const h=cv.getBoundingClientRect().height||26;
+    cell=Math.max(1,(h*0.92)/(ROWS*1.2));
+    const w=Math.ceil(COLS*cell*1.2);
+    cv.style.width=w+'px';
+    cv.width=Math.round(w*DPR); cv.height=Math.round(h*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  let last=0, gait=0, dir=1;
+  function draw(T,moving){
+    const w=cv.width/DPR, h=cv.height/DPR;
+    ctx.clearRect(0,0,w,h);
+    const pitch=cell*1.2;
+    const bob=moving?Math.round(Math.sin(gait*Math.PI*2)*cell*0.55):0;
+    const ox=(w-(COLS*pitch-cell*0.2))/2, oy=(h-(ROWS*pitch-cell*0.2))/2+bob;
+    ctx.save();
+    if(dir<0){ ctx.translate(w,0); ctx.scale(-1,1); }
+    for(let y=0;y<ROWS;y++){
+      const row=M[y];
+      for(let x=0;x<COLS;x++){
+        const c=INK[row[x]]; if(!c) continue;
+        /* the back legs swing with the gait */
+        let dy=0;
+        if(moving && y>=ROWS-3) dy=Math.round(Math.sin((gait+(x<COLS/2?0:.5))*Math.PI*2)*cell*0.5);
+        ctx.fillStyle='rgb('+c[0]+','+c[1]+','+c[2]+')';
+        ctx.fillRect(Math.round(ox+x*pitch),Math.round(oy+y*pitch+dy),
+                     Math.ceil(cell),Math.ceil(cell));
+      }
+    }
+    ctx.restore();
+  }
+
+  let target=0, at=0, moving=false, still=0;
+  function measure(){
+    const H=document.body.scrollHeight-innerHeight;
+    target=H>0?Math.min(1,Math.max(0,scrollY/H)):0;
+    /* what he is standing in */
+    let cur=null;
+    for(const sec of secs){ if(sec.offsetTop-innerHeight*0.4<=scrollY) cur=sec; }
+    lab.textContent = cur ? (NAMES[cur.id]||cur.id) : 'the top';
+  }
+  addEventListener('scroll',measure,{passive:true});
+  addEventListener('resize',()=>{fit();layTicks();measure();});
+
+  function frame(now){
+    const dt=Math.min(0.05,(now-last)/1000); last=now;
+    const d=target-at;
+    moving=Math.abs(d)>0.0012;
+    if(moving){ dir=d<0?-1:1; gait+=dt*5.4; }
+    at+=d*Math.min(1,dt*5.5);
+    still=moving?0:still+dt;
+    const w=rail.getBoundingClientRect().width;
+    const cw=cv.getBoundingClientRect().width||30;
+    cv.style.transform='translateX('+((w-cw-24)*at).toFixed(1)+'px)';
+    fill.style.width=(at*100).toFixed(2)+'%';
+    /* an idle blink of the pointer once he settles */
+    lab.style.opacity = still>2.4 ? '0.55' : '1';
+    draw(now/1000,moving);
+    requestAnimationFrame(frame);
+  }
+  fit(); layTicks(); measure(); requestAnimationFrame(frame);
+  setTimeout(layTicks,1200);
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE SCOUTS — the creature standing next to the thing that matters
+   ══════════════════════════════════════════════════════════════════════ */
+(function scouts(){
+  const list=[...document.querySelectorAll('.scout')];
+  if(!list.length) return;
+  const M=MASCOT, COLS=M[0].length, ROWS=M.length;
+  const MODEL={eyes:eyesOf(M)};
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in');
+  }),{threshold:.35});
+  list.forEach((sc,n)=>{
+    io2.observe(sc);
+    const cv=sc.querySelector('canvas'); if(!cv) return;
+    const ctx=cv.getContext('2d');
+    let cell=0,DPR=1,W=0,H=0;
+    function fit(){
+      DPR=Math.min(devicePixelRatio||1,2);
+      const r=cv.getBoundingClientRect(); W=r.width||78; H=r.height||60;
+      cell=Math.min((W*0.94)/(COLS*1.2),(H*0.9)/(ROWS*1.2));
+      cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+    fit(); addEventListener('resize',fit);
+    (function frame(now){
+      const T=now/1000+n*1.7;
+      ctx.clearRect(0,0,W,H);
+      const pitch=cell*1.2;
+      /* a slow breath, and now and then a hop */
+      const cyc=(T*0.62)%1;
+      const hop = cyc<0.22 ? Math.sin(cyc/0.22*Math.PI)*cell*1.5 : 0;
+      const breath=Math.sin(T*1.7)*cell*0.18;
+      const ox=(W-(COLS*pitch-cell*0.2))/2;
+      const oy=(H-(ROWS*pitch-cell*0.2))/2-hop+breath;
+      MODEL.cols=COLS; MODEL.rows=ROWS;
+      for(let y=0;y<ROWS;y++){
+        const row=M[y];
+        for(let x=0;x<COLS;x++){
+          const c=INK[row[x]]; if(!c) continue;
+          ctx.fillStyle='rgb('+c[0]+','+c[1]+','+c[2]+')';
+          ctx.fillRect(Math.round(ox+x*pitch),Math.round(oy+y*pitch),
+                       Math.ceil(cell),Math.ceil(cell));
+        }
+      }
+      pupils(ctx,MODEL,ox,oy,cell,cell*0.2,cv.getBoundingClientRect(),false);
+      requestAnimationFrame(frame);
+    })(performance.now());
+  });
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE LIVE TERMINAL — the same rules the program runs, in the browser.
+   No keys, no signer, no transaction path. `buy` prints the desk and
+   sends you to the official swap; it never builds a trade here.
+   ══════════════════════════════════════════════════════════════════════ */
+(function terminal(){
+  const out=$('ltOut'), inp=$('ltCmd'), sug=$('ltSug');
+  if(!out||!inp) return;
+
+  const V={notes:35,alive:14,dead:21,words:851,links:16,settled:5,open:2,
+           said:75,right:40,gap:35,brier:0.388,tests:201};
+  const KINDS=['file','csv','chain','manual'];
+  const OPS=['gte','lte','gt','lt','eq','between'];
+  const VAGUE=/\b(moon|mooning|soon|pump|dump|huge|big|massive|better|worse|good|bad|great|up|down|explode|rip|send)\b/i;
+  const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+  const sleep=ms=>new Promise(f=>setTimeout(f,ms));
+  /* the status rail reports what really happened */
+  const t0=Date.now();
+  setInterval(()=>{
+    const c=$('ltCount'); if(c) c.textContent=out.children.length;
+    const u=$('ltUp');
+    if(u){ const n=Math.floor((Date.now()-t0)/1000);
+      u.textContent = n<60 ? n+'s' : Math.floor(n/60)+'m '+(n%60)+'s'; }
+  },1000);
+
+  /* ── writing ─────────────────────────────────────────────────────── */
+  let busy=false;
+  function line(cls,text){
+    const e=document.createElement('span');
+    e.className='l '+(cls||'');
+    e.innerHTML=text;
+    out.appendChild(e); out.scrollTop=out.scrollHeight;
+    return e;
+  }
+  function raw(html){
+    const e=document.createElement('div'); e.innerHTML=html;
+    out.appendChild(e); out.scrollTop=out.scrollHeight;
+  }
+  async function type(rows){
+    busy=true;
+    for(const r of rows){
+      if(r.html){ raw(r.html); }
+      else line(r.c, esc(r.s||''));
+      await new Promise(f=>setTimeout(f, RM?0:(r.s?Math.min(90,14+r.s.length*0.5):30)));
+    }
+    busy=false;
+  }
+
+  /* ── the argument parser: quotes, then --flags ───────────────────── */
+  function parse(src){
+    const tok=[]; let cur='', q=null;
+    for(const ch of src){
+      if(q){ if(ch===q){q=null} else cur+=ch; continue; }
+      if(ch==='"'||ch==="'"){ q=ch; continue; }
+      if(ch===' '){ if(cur){tok.push(cur);cur=''} continue; }
+      cur+=ch;
+    }
+    if(cur) tok.push(cur);
+    const pos=[], flag={};
+    for(let i=0;i<tok.length;i++){
+      if(tok[i].startsWith('--')){
+        const k=tok[i].slice(2);
+        const v=(i+1<tok.length&&!tok[i+1].startsWith('--'))?tok[++i]:'true';
+        flag[k]=v;
+      } else pos.push(tok[i]);
+    }
+    return {pos,flag};
+  }
+
+  /* ── the rules. every one of these refuses in the program too ────── */
+  function checkClaim(f){
+    const bad=[];
+    const text=f.claim||'';
+    if(!text) bad.push(['--claim','say what number, and which way.']);
+    else if(VAGUE.test(text) && !/\d/.test(text))
+      bad.push(['--claim "'+text+'"','cannot be settled by reading a number. Name the number.']);
+    if(!f.settles) bad.push(['--settles','a claim with no date never closes.']);
+    else{
+      const d=new Date(f.settles+'T00:00:00Z');
+      if(isNaN(d)) bad.push(['--settles '+f.settles,'not a date. Use YYYY-MM-DD.']);
+      else if(d.getTime()<=Date.now())
+        bad.push(['--settles '+f.settles,'not in the future. You cannot bet on yesterday’s race.']);
+    }
+    if(!f.reads) bad.push(['--reads','not a source. Use file: csv: chain: manual:']);
+    else if(!KINDS.some(k=>f.reads.startsWith(k+':')))
+      bad.push(['--reads '+f.reads,'not a source. Use file: csv: chain: manual:']);
+    if(!f.test) bad.push(['--test','not a test. Use '+OPS.join(' ')]);
+    else if(!OPS.includes(String(f.test).trim().split(/\s+/)[0]))
+      bad.push(['--test "'+f.test+'"','not a test. Use gte 10 · lte 3.5 · between 2 4']);
+    else if(!/\d/.test(f.test))
+      bad.push(['--test "'+f.test+'"','a test needs a number to compare against.']);
+    if(f.confidence!==undefined){
+      const c=Number(f.confidence);
+      if(!isFinite(c)||c<0||c>1)
+        bad.push(['--confidence '+f.confidence,'confidence is a probability. 0 to 1.']);
+    }
+    return bad;
+  }
+
+  /* ── the buy desk ────────────────────────────────────────────────── */
+  function deskHTML(){
+    const live=!!CONFIG.ca, canSwap=!!SWAP_URL;
+    const ca = live ? esc(CONFIG.ca) : 'PENDING &mdash; NOT PUBLISHED';
+    return '<div class="desk">'
+      +'<div class="dh"><b>'+esc(CONFIG.ticker)+'</b>'
+        +'<em>'+esc(CONFIG.chain)+'</em><em>chain '+esc(CONFIG.chainId)+'</em>'
+        +'<em style="color:'+(live?'var(--lit)':'var(--gold)')+'">'
+        +(live?'ADDRESS PUBLISHED':'PRE-LAUNCH')+'</em></div>'
+      +'<div class="dr"><u>contract</u><b class="'+(live?'':'pend')+'" id="deskCa">'+ca+'</b></div>'
+      +'<div class="dr"><u>where it trades</u><b>'+(canSwap?'the official swap':'<span class="pend">no pool yet</span>')+'</b></div>'
+      +'<div class="dr"><u>this page</u><b>no keys &middot; no signer &middot; no transaction</b></div>'
+      +'<div class="da">'
+        +'<button class="cta'+(live?'':' off')+'" id="deskCopy">COPY ADDRESS</button>'
+        +'<a class="cta pri'+(canSwap?'':' off')+'" id="deskSwap" href="'+(canSwap?esc(SWAP_URL):'#token')+'"'
+        +(canSwap?' target="_blank" rel="noopener"':'')+'>OPEN THE SWAP &#8599;</a>'
+        +'<a class="cta'+(CONFIG.explorer?'':' off')+'" href="'+(CONFIG.explorer||'#token')+'"'
+        +(CONFIG.explorer?' target="_blank" rel="noopener"':'')+'>EXPLORER &#8599;</a>'
+      +'</div>'
+      +'<div class="safe">'+(live
+        ? '<b>Check the address on the explorer before you trade.</b> Anyone can print an address on a page. This one is here so you can compare it, not so you can trust it.'
+        : '<b>There is nothing to buy yet.</b> No address is published, so any address claiming to be '+esc(CONFIG.ticker)+' right now is not this project. The button turns on here the moment a real one is set.')
+      +'</div></div>';
+  }
+  function wireDesk(){
+    const cp=$('deskCopy');
+    if(cp&&CONFIG.ca) cp.addEventListener('click',()=>{
+      navigator.clipboard&&navigator.clipboard.writeText(CONFIG.ca).then(()=>{
+        cp.textContent='COPIED'; setTimeout(()=>cp.textContent='COPY ADDRESS',1400);},()=>{});
+    });
+  }
+
+  /* ── the commands ────────────────────────────────────────────────── */
+  const HELP=[
+    ['demo','the vault the demo writes, and its numbers'],
+    ['pulse','said, right, and the gap between them'],
+    ['claim','write one — it is checked by the real rules'],
+    ['settle','what happens when the date lands'],
+    ['sources','the four things a claim may read'],
+    ['buy','the token desk: address, swap, and the honest state'],
+    ['ledger','how the append-only log is chained'],
+    ['clear','wipe the screen']
+  ];
+  const CMD={
+    help(){ return [{c:'dim',s:'commands —'}].concat(
+      HELP.map(h=>({c:'',s:'  '+h[0].padEnd(9)+' '+h[1]})),
+      [{c:'dim',s:''},
+       {c:'dim',s:'  try:  claim "tx count is at or above 10000000" --reads chain:robinhood-testnet/txcount --test "gte 10000000" --settles 2027-01-01 --confidence 0.7'}]); },
+    demo(){ return [
+      {c:'dim',s:'$ yoink demo && yoink'},
+      {c:'ok', s:'  '+V.notes+' notes · '+V.alive+' alive · '+V.dead+' never opened again'},
+      {c:'ok', s:'  '+V.settled+' claims settled on the spot · '+V.open+' still open'},
+      {c:'go', s:'  said '+V.said+'%, right '+V.right+'% — +'+V.gap+' pts'},
+      {c:'dim',s:'  '+V.words+' words · '+V.links+' links, all resolve · fixed seed, so you get these too'}]; },
+    pulse(){ return [
+      {c:'',   s:'said   '+V.said+'%   average confidence, folded to your side'},
+      {c:'',   s:'right  '+V.right+'%   how often that side was the right one'},
+      {c:'go', s:'gap    +'+V.gap+'    points of overconfidence'},
+      {c:'dim',s:'brier  '+V.brier+'  (0 perfect · 0.25 a coin · 1 certain and wrong)'},
+      {c:'dim',s:'the gap cannot be improved by writing more notes.'}]; },
+    sources(){ return [
+      {c:'dim',s:'a claim may read exactly four things —'},
+      {c:'ok', s:'  file:data/readings.json#chain.block   a JSON file, by key path'},
+      {c:'ok', s:'  csv:bars.csv#close@2026-10-01         a column, on a date'},
+      {c:'ok', s:'  chain:robinhood-testnet/blocknumber   a public chain, over JSON-RPC'},
+      {c:'ok', s:'  manual:https://…                      you read it, and the URL is recorded'},
+      {c:'dim',s:'chain reads call eth_chainId first and refuse a different chain.'}]; },
+    settle(){ return [
+      {c:'dim',s:'$ yoink settle'},
+      {c:'',   s:'  reads the source the claim named, once, on or after the date'},
+      {c:'',   s:'  writes outcome, reading, settled, read_from back into the file'},
+      {c:'go', s:'  a settled claim cannot be settled again'},
+      {c:'bad',s:'  endpoint down → the claim stays open rather than settling on a guess'},
+      {c:'dim',s:'nothing is wired in this browser — this is what the program does.'}]; },
+    ledger(){ return [
+      {c:'dim',s:'.yoink/ledger.jsonl — append only, each line hashed over the one before'},
+      {c:'ok', s:'  sha256( seq | at | kind | body | hash₋₁ )'},
+      {c:'',   s:'  change one confidence after a bad outcome and yoink doctor names the line'},
+      {c:'bad',s:'  tamper-evident, not tamper-proof — a test proves it'}]; },
+    clear(){ out.innerHTML=''; return []; },
+    buy(){ return [
+      {c:'dim',s:'$ yoink buy'},
+      {html:deskHTML()},
+      {c:'dim',s:CONFIG.ca?'address published. verify it yourself.':'nothing deployed. the desk turns on by itself.'}]; },
+    claim(a){
+      const f={claim:a.pos.slice(1).join(' ')||a.flag.claim, ...a.flag};
+      if(a.flag.claim) f.claim=a.flag.claim;
+      const bad=checkClaim(f);
+      if(!f.claim&&!Object.keys(a.flag).length) return [
+        {c:'dim',s:'usage —'},
+        {c:'',   s:'  claim "<what, and which way>" --reads <source> --test "<op> <n>" --settles YYYY-MM-DD [--confidence 0..1]'},
+        {c:'dim',s:'  the rules are the program’s. try a bad one on purpose.'}];
+      if(bad.length) return [{c:'bad',s:'✗ refused'}].concat(
+        bad.map(b=>({c:'bad',s:'  '+b[0]+'  —  '+b[1]})),
+        [{c:'dim',s:'nothing was written. a claim that cannot be settled is not a claim.'}]);
+      return [
+        {c:'ok', s:'✓ accepted — this is what goes into the file:'},
+        {c:'dim',s:'---'},
+        {c:'',   s:'claim: '+f.claim},
+        {c:'',   s:'settles: '+f.settles},
+        {c:'',   s:'reads: '+f.reads},
+        {c:'',   s:'test: '+f.test},
+        {c:'',   s:'confidence: '+(f.confidence!==undefined?f.confidence:'0.5')},
+        {c:'dim',s:'---'},
+        {c:'go', s:'due in '+Math.max(0,Math.ceil((new Date(f.settles+'T00:00:00Z')-Date.now())/864e5))+' days. it settles itself.'}];
+    }
+  };
+
+  /* ── running ─────────────────────────────────────────────────────── */
+  const hist=[]; let hi=-1;
+
+  /* the echo: either instant (you typed it) or letter by letter (it did) */
+  async function echo(src,slow){
+    const e=line('cmd','');
+    if(!slow||RM){ e.innerHTML='<b>$</b> '+esc(src); return; }
+    for(let i=0;i<=src.length;i++){
+      e.innerHTML='<b>$</b> '+esc(src.slice(0,i))+'<i class="cur"></i>';
+      out.scrollTop=out.scrollHeight;
+      await sleep(16+Math.random()*42);
+    }
+    e.innerHTML='<b>$</b> '+esc(src);
+  }
+  async function exec(src){
+    const a=parse(src);
+    /* `yoink demo` and `demo` are the same thing */
+    if((a.pos[0]||'').toLowerCase()==='yoink') a.pos.shift();
+    const name=(a.pos[0]||'help').toLowerCase();
+    const fn=CMD[name];
+    if(!fn){
+      await type([{c:'bad',s:'✗ '+name+': not a command'},
+                  {c:'dim',s:'  type help'}]);
+      return;
+    }
+    await type(fn(a));
+    if(name==='buy') wireDesk();
+  }
+  async function run(src,slow){
+    src=String(src).trim();
+    if(!src) return;
+    if(!slow){ hist.push(src); hi=hist.length; }
+    busy=true;
+    await echo(src,slow);
+    busy=false;
+    await exec(src);
+  }
+
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){ if(busy) return; const v=inp.value; inp.value=''; run(v); }
+    else if(e.key==='ArrowUp'){ if(hi>0){hi--;inp.value=hist[hi];} e.preventDefault(); }
+    else if(e.key==='ArrowDown'){ if(hi<hist.length-1){hi++;inp.value=hist[hi];}
+      else {hi=hist.length;inp.value='';} e.preventDefault(); }
+  });
+  out.addEventListener('click',e=>{ if(!e.target.closest('a,button')) inp.focus(); });
+
+  /* clickable commands */
+  [['demo','demo'],['pulse','pulse'],['buy','buy'],['sources','sources'],
+   ['settle','settle'],['ledger','ledger'],
+   ['a claim that works','claim "tx count is at or above 10000000" --reads chain:robinhood-testnet/txcount --test "gte 10000000" --settles 2027-01-01 --confidence 0.7'],
+   ['a claim it refuses','claim "it will moon" --reads nowhere --test "goes up" --settles 2020-01-01'],
+   ['help','help'],['clear','clear']].forEach(([label,cmd])=>{
+    const b=document.createElement('button');
+    b.type='button'; b.textContent=label;
+    b.addEventListener('click',()=>{ takeOver(); if(busy) return;
+      inp.value=''; inp.focus(); run(cmd); });
+    sug.appendChild(b);
+  });
+
+  /* ── autorun: it works on its own until you touch it ───────────── */
+  const SHOW=[
+    ['yoink demo',           2100],
+    ['pulse',                2300],
+    ['claim "it will moon" --reads nowhere --test "goes up" --settles 2020-01-01', 2600],
+    ['claim "tx count is at or above 10000000" --reads chain:robinhood-testnet/txcount --test "gte 10000000" --settles 2027-01-01 --confidence 0.7', 2700],
+    ['sources',              2300],
+    ['buy',                  3200],
+    ['ledger',               2200],
+    ['clear',                 900]
+  ];
+  let auto=true, visible=false, started=false, step=0;
+  const mode=$('ltMode');
+  function takeOver(){
+    if(!auto) return;
+    auto=false;
+    if(mode){ mode.className=''; mode.textContent='YOU HAVE THE KEYS'; }
+  }
+  ['keydown','pointerdown'].forEach(ev=>{
+    inp.addEventListener(ev,takeOver);
+    sug.addEventListener(ev,takeOver);
+    out.addEventListener(ev,takeOver);
+  });
+
+  async function loop(){
+    await type([
+      {c:'dim',s:'yoink 0.1 · python 3.10+ · 0 dependencies · '+V.tests+' tests'},
+      {c:'dim',s:'the real rules, running in your browser. no keys, no signer, no trades.'},
+      {c:'ok', s:'ready — it will walk itself through. start typing any time to take over.'}
+    ]);
+    while(auto){
+      /* wait until it is actually on screen, and until you are not typing */
+      while(auto && (!visible || document.activeElement===inp)) await sleep(400);
+      if(!auto) break;
+      const [cmd,hold]=SHOW[step%SHOW.length]; step++;
+      await sleep(500);
+      if(!auto) break;
+      await run(cmd,true);
+      const t0=Date.now();
+      while(auto && Date.now()-t0<hold) await sleep(120);
+    }
+    if(out.lastChild) line('dim','— autorun stopped. the prompt is yours.');
+  }
+
+  new IntersectionObserver(es=>es.forEach(e=>{
+    visible=e.isIntersecting;
+    if(visible && !started){ started=true; if(RM){ takeOver();
+      type([{c:'ok',s:'ready. type help, or press a command below.'}]); } else loop(); }
+  }),{threshold:.2}).observe($('lt'));
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE FILM — plays only while it is on screen, and only if the machine
+   has not asked for stillness. Click anywhere on it to hold it.
+   ══════════════════════════════════════════════════════════════════════ */
+(function film(){
+  const box = $('filmBox'), vid = $('filmVid'), hint = $('filmHint');
+  if(!box || !vid) return;
+  let wanted = !RM, visible = false, broke = false;
+
+  function paint(){
+    /* the play plate shows whenever it is not actually running */
+    const running = !vid.paused && !vid.ended && vid.readyState > 2;
+    box.classList.toggle('paused', !running);
+    if(hint) hint.textContent = broke ? 'could not load' :
+      running ? 'click to pause' : 'click to play';
+  }
+  function sync(){
+    if(wanted && visible && !broke){
+      const q = vid.play();
+      if(q && q.catch) q.catch(() => { /* a policy said no — the plate stays */ paint(); });
+    } else if(!wanted || !visible){ vid.pause(); }
+    paint();
+  }
+  function toggle(){ wanted = !wanted; sync(); }
+  box.addEventListener('click', toggle);
+  box.addEventListener('keydown', e => {
+    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggle(); }
+  });
+  ['playing','pause','ended','canplay','loadeddata','waiting'].forEach(ev =>
+    vid.addEventListener(ev, paint));
+  vid.addEventListener('loadeddata', () => { if(wanted && visible) sync(); });
+  vid.addEventListener('error', () => { broke = true; paint(); });
+  /* a source element failing does not bubble to the video, so watch them too */
+  [...vid.querySelectorAll('source')].forEach(sc => sc.addEventListener('error', () => {
+    if(vid.networkState === 3 /* NO_SOURCE */){ broke = true; paint(); }
+  }));
+  /* if autoplay was refused, the first click anywhere on the page frees it */
+  addEventListener('pointerdown', function once(){
+    removeEventListener('pointerdown', once);
+    if(wanted && visible && vid.paused) sync();
+  }, {passive:true});
+
+  new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; sync(); }),
+    {threshold:.2}).observe(box);
+  if(RM) wanted = false;
+  paint(); sync();
+})();
+
+})();
+</script>
+
+
+</body>
+</html>
