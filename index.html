@@ -1019,9 +1019,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
   <h3 class="big rv">Every <span class="g" id="burnHrs">01:30</span><span id="burnUnit"></span>,
   the supply gets <span class="g">smaller</span>.</h3>
   <p class="one rv">A share of what is left is sent to an address nobody holds the keys to.
-  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below runs the
-  window end to end &mdash; a full <b>01:30</b>, down to zero, then again. It locks onto the
-  chain's own schedule the moment the first burn is set.</p>
+  <b>It only moves one way</b> &mdash; nothing brings it back. The clock below is on a fixed
+  schedule &mdash; <b>00:00, 01:30, 03:00</b> and so on in UTC. It shows what is left of the
+  window you walked into, and reloading the page does not move it.</p>
 
   <div class="burnhead rv">
     <span class="chip" id="burnChip"><i></i><span id="burnState">not live yet</span></span>
@@ -1046,7 +1046,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
         <div class="rl"><span id="ringNow">00:00:00 UTC</span><span id="ringPct">0% of the way there</span></div>
       </div>
       <div class="scout"><canvas class="sc"></canvas>
-        <div class="sw">the window is 01:30 and it is running.
+        <div class="sw">same clock for everyone &mdash; a reload will not reset it.
           <b>the amounts fill in the moment there is an address.</b></div></div>
     </div>
     <div>
@@ -1617,12 +1617,13 @@ document.querySelectorAll('.rv').forEach(e=>io.observe(e));
       (e=>setTimeout(()=>e.classList.remove('hit'),190))(b[i]);
     }
   }
-  /* With a real epoch the clock locks to the chain's schedule. Until then it
-     runs the window itself: opens at a full 01:30, counts to zero, starts over. */
-  const OPENED = Date.now();
+  /* The anchor is a fixed point in time, never the moment the tab opened, so the
+     window is the same for everyone and a reload changes nothing. epochUTC 0 lands
+     on 00:00 UTC, and 86400/5400 = 16 whole windows, so the grid closes on the day. */
+  const BASE = (B.epochUTC||0)*1000;
   function tick(){
     const now=Date.now();
-    const base = B.epochUTC ? B.epochUTC*1000 : OPENED;
+    const base = BASE;
     const since=((now-base)%every+every)%every;
     const left=every-since;
     /* round the remainder up, so a freshly opened window reads a whole 01:30:00
